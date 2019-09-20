@@ -115,7 +115,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-AUTH_USER_MODEL = 'core.User'
 
 
 
@@ -137,3 +136,13 @@ MEDIA_URL = '/media/' # django-storages
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
+
+AUTH_USER_MODEL = 'core.User'
+
+LOGIN_URL = '/accounts/login/'
+
+LOGOUT_URL = 'logout'
+
+LOGIN_REDIRECT_URL = 'home'
+
+LOGOUT_REDIRECT_URL = '/'
