@@ -1,12 +1,6 @@
-import json
-from random import randint
-
-from django.core.files.storage import DefaultStorage
 from django.dispatch import Signal, receiver
 
 from account.models import VolunteerWallet
-from core.models import Volunteer
-from repository.models import Task, Participant
 
 task_evaluated = Signal(providing_args=["task"])
 

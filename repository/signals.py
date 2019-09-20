@@ -1,11 +1,10 @@
 import json
 from random import randint
 
-from django.core.files.storage import DefaultStorage
 from django.dispatch import Signal, receiver
 
 from core.models import Volunteer
-from repository.models import Task, Participant
+from repository.models import Task
 
 project_created = Signal(providing_args=["project"])
 project_delegated = Signal(providing_args=["project"])

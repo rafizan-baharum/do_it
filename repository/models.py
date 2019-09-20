@@ -34,11 +34,6 @@ class Project(models.Model):
     # todo: micro amount or points per data
 
 
-class Participant(models.Model):
-    project = models.ForeignKey(Vendor, null=True, on_delete=models.SET_NULL)
-    volunteer = models.ForeignKey(Volunteer, null=True, on_delete=models.SET_NULL)
-
-
 class Task(models.Model):
     project = models.ForeignKey(Project, null=True, on_delete=models.SET_NULL)
     data = models.CharField(max_length=120)
