@@ -31,7 +31,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.humanize',
     'core.apps.CoreConfig',
-    'task.apps.TaskConfig',
     'repository.apps.RepositoryConfig',
     'configuration.apps.ConfigurationConfig',
     'account.apps.AccountConfig',
