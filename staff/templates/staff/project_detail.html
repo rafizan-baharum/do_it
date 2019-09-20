@@ -1,0 +1,89 @@
+{% extends 'base_staff.html' %}
+
+{% block main-content %}
+    <div class="row">
+        <div class="col-lg-9">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Project</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="row">
+                                        <div class="col-md-3">Name</div>
+                                        <div class="col-md-9">{{ project.name }}</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-3">Vendor</div>
+                                        <div class="col-md-9">{{ project.vendor.name}}</div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="row">
+                                        <div class="col-md-3">TODO</div>
+                                        <div class="col-md-9">TODO</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-3">TODO</div>
+                                        <div class="col-md-9">TODO</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-actions">
+                                <button class="btn btn-primary" onclick="delegate()">
+                                    Delegate
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="task-progress">
+                <h3 class="title-3">Sentiment Progress</h3>
+                <div class="au-skill-container">
+                    <div class="au-progress">
+                        <span class="au-progress__title">Positive</span>
+                        <div class="au-progress__bar">
+                            <div class="au-progress__inner js-progressbar-simple" role="progressbar"
+                                 data-transitiongoal="90">
+                                <span class="au-progress__value js-value"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="au-progress">
+                        <span class="au-progress__title">Neutral</span>
+                        <div class="au-progress__bar">
+                            <div class="au-progress__inner js-progressbar-simple" role="progressbar"
+                                 data-transitiongoal="85">
+                                <span class="au-progress__value js-value"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="au-progress">
+                        <span class="au-progress__title">Negative</span>
+                        <div class="au-progress__bar">
+                            <div class="au-progress__inner js-progressbar-simple" role="progressbar"
+                                 data-transitiongoal="85">
+                                <span class="au-progress__value js-value"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block main-js %}
+    <script>
+        function delegate() {
+            window.location.assign('/staff/projects/{{ project.pk }}/delegate/');
+        }
+    </script>
+{% endblock %}

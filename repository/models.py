@@ -21,11 +21,14 @@ class Vendor(models.Model):
     name = models.CharField(max_length=120)
     type = models.CharField(max_length=20, choices=TYPE_CHOICES, default=TYPE_CHOICES[0][0])
 
+    def __str__(self):
+        return f"{self.pk}:{self.name}"
+
 
 class Project(models.Model):
     name = models.CharField(max_length=120)
     vendor = models.ForeignKey(Vendor, null=True, on_delete=models.SET_NULL, related_name='repositories')
-    repository = models.FileField()  # data
+    repository = models.FileField(blank=True, null=True)  # data
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default=STATUS_CHOICES[0][0])
     # todo: micro amount or points per data
     # todo: micro amount or points per data

@@ -1,59 +1,67 @@
 {% extends 'base_staff.html' %}
+{% load humanize %}
+
 
 {% block main-content %}
     <div class="row">
         <div class="col-md-12">
             <div class="overview-wrap">
-                <h2 class="title-1">Academic</h2>
+                <h2 class="title-1">Dashboard</h2>
             </div>
         </div>
     </div>
-    <div class="row m-t-25">
+    <div class="row">
         <div class="col-lg-9">
-            <div class="table-responsive m-b-40">
-                <table class="table table-borderless table-striped table-data3">
+            <h2 class="title-1 m-b-25">Earnings By Projects</h2>
+            <div class="table-responsive table--no-card m-b-40">
+                <table class="table table-borderless table-striped table-earning">
                     <thead>
                     <tr>
-                        <th>Student</th>
-                        <th>Semester</th>
-                        <th>School</th>
-                        <th>Level</th>
+                        <th>date</th>
+                        <th>order ID</th>
+                        <th>name</th>
+                        <th class="text-right">total</th>
                     </tr>
                     </thead>
-
-                    {% for resultbook in resultbooks %}
-                        <tr class='clickable-row' data-href='{{ resultbook.get_absolute_url }}'>
-                            <td>
-                                {{ resultbook.student.name }}
-                            </td>
-                            <td>
-                                {{ resultbook.semester.name }}
-                            </td>
-                            <td>
-                                {{ resultbook.school.name }}
-                            </td>
-                            <td>
-                                {{ resultbook.level.name }}
-                            </td>
-                        </tr>
-                    {% endfor %}
+                    <tbody>
+                    <tr>
+                        <td>2018-09-29 05:57</td>
+                        <td>100398</td>
+                        <td>iPhone X 64Gb Grey</td>
+                        <td class="text-right">$999.00</td>
+                    </tr>
+                    <tr>
+                        <td>2018-09-28 01:22</td>
+                        <td>100397</td>
+                        <td>Samsung S8 Black</td>
+                        <td class="text-right">$756.00</td>
+                    </tr>
+                    <tr>
+                        <td>2018-09-22 00:43</td>
+                        <td>100393</td>
+                        <td>USB 3.0 Cable</td>
+                        <td class="text-right">$30.00</td>
+                    </tr>
+                    </tbody>
                 </table>
             </div>
         </div>
         <div class="col-lg-3">
-            <div class="card">
-                <div class="card-header">
-                    <h4>Menus</h4>
-                </div>
-                <div class="card-body">
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">
-                            <a href="/academic/resultbooks/create">Register Resultbook</a>
-                        </li>
-                        <li class="list-group-item">
-                            <a href="/academic/resultbooks/list">Resultbook List</a>
-                        </li>
-                    </ul>
+            <h2 class="title-1 m-b-25">Top Volunteer</h2>
+            <div class="au-card au-card--bg-blue au-card-top-countries m-b-40">
+                <div class="au-card-inner">
+                    <div class="table-responsive">
+                        <table class="table table-top-countries">
+                            <tbody>
+                            {% for earning in earnings %}
+                                <tr>
+                                    <td>{{ earning.volunteer }}</td>
+                                    <td class="text-right">{{ earning.total | floatformat:2|intcomma }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

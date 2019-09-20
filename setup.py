@@ -1,8 +1,11 @@
 # ==================================================================================================
 # # User
 # ==================================================================================================
+from random import randint
+
+from account.models import VolunteerWallet
 from core.models import Staff, User, Volunteer
-from repository.models import Vendor
+from repository.models import Vendor, Project
 
 # user_staff = User()
 # user_staff.password = 'pbkdf2_sha256$150000$kxgoZc1nqo7D$yQUXU5W2GN05Osmwy+PA1yB66W/IJkcsEzB2rdz2B3Y='
@@ -55,19 +58,36 @@ vendor.name = 'Perbandanan Nasional Berhad'
 vendor.type = 'GLC'
 vendor.save()
 
-vendor = Vendor()
-vendor.name = 'Rashid Hussin Bank'
-vendor.type = 'GLC'
-vendor.save()
+# vendor = Vendor()
+# vendor.name = 'Rashid Hussin Bank'
+# vendor.type = 'GLC'
+# vendor.save()
+#
+# vendor = Vendor()
+# vendor.name = 'MAMPU'
+# vendor.type = 'GOVERNMENT'
+# vendor.save()
+#
+# vendor = Vendor()
+# vendor.name = 'Jabatan Perdana Menteri'
+# vendor.type = 'GOVERNMENT'
+# vendor.save()
 
-vendor = Vendor()
-vendor.name = 'MAMPU'
-vendor.type = 'GOVERNMENT'
-vendor.save()
+# ==================================================================================================
+# Randomize Wallet
+# ==================================================================================================
 
-vendor = Vendor()
-vendor.name = 'Jabatan Perdana Menteri'
-vendor.type = 'GOVERNMENT'
-vendor.save()
+countVolunteer = Volunteer.objects.count()
+countProject = Project.objects.count()
+for j in range(10000):
+    random_volunteer = randint(0, countVolunteer - 1)
+    random_project = randint(0, countProject - 1)
+    entry = VolunteerWallet()
+    entry.volunteer = Volunteer.objects.all()[random_volunteer]
+    entry.project = Project.objects.all()[random_project]
+    entry.amount = 0.10
+    entry.save()
 
 print('Done')
+
+

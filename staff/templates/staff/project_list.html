@@ -1,0 +1,87 @@
+{% extends "base_staff.html" %}
+{% block main-content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="overview-wrap">
+                <h2 class="title-1">Project List</h2>
+                <button class="au-btn au-btn-icon au-btn--blue" onclick="addProject()">
+                    <i class="zmdi zmdi-plus"></i>Add
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 m-t-25">
+            <div class="table-responsive m-b-40">
+                <table class="table table-borderless table-striped table-data3">
+                    <thead>
+                    <tr>
+                        <th>NAME</th>
+                        <th>VENDOR</th>
+                        <th>STATUS</th>
+                    </tr>
+                    </thead>
+
+                    {% for project in projects %}
+                        <tr class='clickable-row' data-href='/staff/projects/{{ project.id }}'>
+                            <td>
+                                {{ project.name }}
+                            </td>
+                            <td>
+                                {{ project.vendor.name }}
+                            </td>
+                            <td>
+                                {{ project.status }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+
+                {% if projects.has_other_pages %}
+                    <nav>
+                        <ul class="pagination">
+                            {% if projects.has_previous %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ projects.previous_page_number }}">&laquo;</a>
+                                </li>
+                                {#                            {% else %}#}
+                                {#                                <li class="page-item"><span>&laquo;</span></li>#}
+                            {% endif %}
+                            {% for i in projects.paginator.page_range %}
+                                {% if projects.number == i %}
+                                    <li class="page-item active">
+                                        <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                                    </li>
+                                {% else %}
+                                    <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                                {% endif %}
+                            {% endfor %}
+                            {% if projects.has_next %}
+                                <li class="page-item"><a class="page-link"
+                                                         href="?page={{ projects.next_page_number }}">&raquo;</a>
+                                </li>
+                                {#                            {% else %}#}
+                                {#                                <li class="page-item"><span>&raquo;</span></li>#}
+                            {% endif %}
+                        </ul>
+                    </nav>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block main-js %}
+    <script>
+        jQuery(document).ready(function ($) {
+            $(".clickable-row").click(function () {
+                window.location = $(this).data("href");
+            });
+        });
+
+        function addProject() {
+            window.location.assign('/staff/projects/create/');
+        }
+    </script>
+{% endblock %}
