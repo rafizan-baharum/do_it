@@ -31,6 +31,7 @@ class Project(models.Model):
     repository = models.FileField(blank=True, null=True)  # data
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default=STATUS_CHOICES[0][0])
     # todo(hafiz): task_point : integer i.e 10, 100, 200
+    task_point = models.IntegerField(default=0)
 
 
 class Task(models.Model):
