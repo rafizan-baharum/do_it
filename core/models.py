@@ -27,6 +27,17 @@ class City(models.Model):
     created_date = models.DateTimeField(auto_now_add=True)
     modified_date = models.DateTimeField(auto_now=True)
 
+# todo(hafiz): link with Volunteer
+# todo(hafiz): figure out how to level-up volunteer
+class Level(models.Model):
+    # id = models.IntegerField() # pk
+    code = models.CharField(max_length=20, null=False, blank=False, unique=True)
+    name = models.CharField(max_length=120)
+    daily_task_count = models.IntegerField()
+
+    created_date = models.DateTimeField(auto_now_add=True)
+    modified_date = models.DateTimeField(auto_now=True)
+
 
 class User(AbstractUser):
     is_staff = models.BooleanField(default=False)

@@ -1,2 +1,15 @@
 https://books.agiliq.com/projects/django-api-polls-tutorial/en/latest/
 https://books.agiliq.com/projects/django-multi-tenant/en/latest/
+
+
+impacts
+- social
+- industry
+- university - surveys
+
+user profile
+project profile
+
+additional slides
+- challenges and risks
+- business model

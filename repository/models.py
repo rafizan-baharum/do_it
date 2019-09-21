@@ -30,8 +30,7 @@ class Project(models.Model):
     vendor = models.ForeignKey(Vendor, null=True, on_delete=models.SET_NULL, related_name='repositories')
     repository = models.FileField(blank=True, null=True)  # data
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default=STATUS_CHOICES[0][0])
-    # todo: micro amount or points per data
-    # todo: micro amount or points per data
+    # todo(hafiz): task_point : integer i.e 10, 100, 200
 
 
 class Task(models.Model):
