@@ -44,3 +44,9 @@ def recommend_random_volunteer():
 def recommend_volunteer_from_area():
     pass
 
+# todo(alif): recommendation engine based on project tags
+def recommend_volunteer_from_area(project):
+    # project.tags
+    # feed into recommendation engine
+    pass
+
