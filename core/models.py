@@ -27,8 +27,8 @@ class City(models.Model):
     created_date = models.DateTimeField(auto_now_add=True)
     modified_date = models.DateTimeField(auto_now=True)
 
-# todo(hafiz): link with Volunteer
-# todo(hafiz): figure out how to level-up volunteer
+# todo(hafiz): link with Doer
+# todo(hafiz): figure out how to level-up doer
 class Level(models.Model):
     # id = models.IntegerField() # pk
     code = models.CharField(max_length=20, null=False, blank=False, unique=True)
@@ -41,14 +41,14 @@ class Level(models.Model):
 
 class User(AbstractUser):
     is_staff = models.BooleanField(default=False)
-    is_volunteer = models.BooleanField(default=False)
+    is_doer = models.BooleanField(default=False)
 
 
-class Volunteer(models.Model):
+class Doer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     name = models.CharField(max_length=120)
     nric_no = models.CharField(max_length=120)
-    #  todo(mudzaffar): level - foreignkey Level
+    level = models.ForeignKey(Level, null=True, on_delete=models.SET_NULL)
     #  todo(mudzaffar): city - foreignkey City
     # todo(mudzaffar): state - foreignkey State
 

@@ -19,14 +19,14 @@
             <div class="register-link">
                 <p>{{ task_count }} tasks remaining</p>
                 <p>
-                    Back to <a href="/volunteer/home">Home</a>
+                    Back to <a href="/doer/home">Home</a>
                 </p>
             </div>
         {% elif not current_task %}
             <div class="register-link">
                 <p>You currently have no task</p>
                 <p>
-                    Back to <a href="/volunteer/home">Home</a>
+                    Back to <a href="/doer/home">Home</a>
                 </p>
             </div>
         {% endif %}
@@ -39,7 +39,7 @@
             $(".au-btn").click(function () {
                 sentiment = $(this).data("sentiment");
                 $.post(
-                    "/volunteer/tasks/play",
+                    "/doer/tasks/play",
                     {
                         task_id: {{ current_task.id }},
                         sentiment: sentiment,

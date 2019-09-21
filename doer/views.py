@@ -4,22 +4,22 @@ from django.shortcuts import render, get_object_or_404
 
 # Create your views here.
 from account.signals import task_evaluated
-from core.models import Volunteer
+from core.models import Doer
 from repository.models import Task, Project
 
 
 def index_page(request):
     # todo(uda): view maybe?
-    incompleted_project_tasks = Project.objects.filter(project_tasks__volunteer=get_volunteer(request),
+    incompleted_project_tasks = Project.objects.filter(project_tasks__doer=get_doer(request),
                                                        project_tasks__is_negative=False,
                                                        project_tasks__is_neutral=False,
                                                        project_tasks__is_positive=False
                                                        )\
-        .annotate(total=Coalesce(Count('project_tasks__volunteer'), 0))\
+        .annotate(total=Coalesce(Count('project_tasks__doer'), 0))\
         .order_by('total')
 
     context = {'project_tasks': incompleted_project_tasks}
-    return render(request, 'volunteer/index.html', context)
+    return render(request, 'doer/index.html', context)
 
 
 def play_page(request):
@@ -39,14 +39,14 @@ def play_page(request):
             task_evaluated.send(sender=None, task=task)
         else:
             pass
-    volunteer = get_volunteer(request)
-    task_count = Task.objects.filter(volunteer=volunteer, is_negative=False, is_neutral=False,
+    doer = get_doer(request)
+    task_count = Task.objects.filter(doer=doer, is_negative=False, is_neutral=False,
                                      is_positive=False).count()
     if task_count > 0:
-        current_task = Task.objects.filter(volunteer=volunteer, is_negative=False, is_neutral=False, is_positive=False)[0]
+        current_task = Task.objects.filter(doer=doer, is_negative=False, is_neutral=False, is_positive=False)[0]
     context = {'current_task': current_task, 'task_count': task_count}
-    return render(request, 'volunteer/play.html', context)
+    return render(request, 'doer/play.html', context)
 
 
-def get_volunteer(request):
-    return get_object_or_404(Volunteer, user=request.user)
+def get_doer(request):
+    return get_object_or_404(Doer, user=request.user)

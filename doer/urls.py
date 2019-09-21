@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import path, include
 
-from volunteer.views import index_page, play_page
+from doer.views import index_page, play_page
 
 urlpatterns = [
     path('', index_page),

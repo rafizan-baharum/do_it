@@ -13,7 +13,7 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     path('accounts/signup/', include(('signup.urls', 'signup'), namespace="signup")),
     path('staff/', include(('staff.urls', 'staff'), namespace='staff')),
-    path('volunteer/', include(('volunteer.urls', 'volunteer'), namespace='volunteer')),
+    path('doer/', include(('doer.urls', 'doer'), namespace='doer')),
     path('admin/', admin.site.urls),
 ]
 

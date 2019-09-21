@@ -3,7 +3,7 @@ from random import randint
 
 from django.dispatch import Signal, receiver
 
-from core.models import Volunteer
+from core.models import Doer
 from repository.decorators import start_new_thread
 from repository.models import Task
 
@@ -39,9 +39,9 @@ def assign_random_task(project):
 
 
 def recommend_random_volunteer():
-    count_volunteer = Volunteer.objects.count()
+    count_volunteer = Doer.objects.count()
     random_volunteer = randint(0, count_volunteer - 1)
-    return Volunteer.objects.all()[random_volunteer]
+    return Doer.objects.all()[random_volunteer]
 
 
 # todo(hafiz): recommendation engine based on data from data.gov

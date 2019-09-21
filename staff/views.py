@@ -3,8 +3,8 @@ from django.db.models.functions import Coalesce
 from django.shortcuts import render, redirect
 
 # Create your views here.
-from account.models import VolunteerWallet
-from core.models import Volunteer
+from account.models import DoerWallet
+from core.models import Doer
 from repository.models import Project
 from repository.signals import project_created, project_delegated
 from staff.forms import ProjectModelForm
@@ -12,12 +12,12 @@ from staff.forms import ProjectModelForm
 
 def index_page(request):
     projects = Project.objects.all()
-    volunteer_earnings = Volunteer.objects.all()\
-        .annotate(total=Coalesce(Sum('volunteer_wallets__amount'), 0))\
+    doer_earnings = Doer.objects.all()\
+        .annotate(total=Coalesce(Sum('doer_wallets__amount'), 0))\
         .order_by('-total')
     context = {
         'projects': projects,
-        'volunteer_earnings': volunteer_earnings
+        'doer_earnings': doer_earnings
     }
     return render(request, 'staff/index.html', context)
 

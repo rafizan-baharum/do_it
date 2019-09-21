@@ -34,7 +34,7 @@ INSTALLED_APPS = [
     'repository.apps.RepositoryConfig',
     'configuration.apps.ConfigurationConfig',
     'account.apps.AccountConfig',
-    'volunteer.apps.VolunteerConfig',
+    'doer.apps.DoerConfig',
     'staff.apps.StaffConfig',
     'signup.apps.SignupConfig',
     'crispy_forms',
@@ -77,7 +77,7 @@ WSGI_APPLICATION = 'do_it.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'dbv3.sqlite3'),
+        'NAME': os.path.join(BASE_DIR, 'dbv4.sqlite3'),
     }
 }
 

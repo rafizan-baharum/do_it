@@ -1,7 +1,7 @@
 from django.db import models
 
 # Create your models here.
-from core.models import Volunteer
+from core.models import Doer
 
 TYPE_CHOICES = (
     ('GLC', 'GLC'),
@@ -36,7 +36,7 @@ class Project(models.Model):
 class Task(models.Model):
     project = models.ForeignKey(Project, null=True, on_delete=models.SET_NULL, related_name='project_tasks')
     data = models.CharField(max_length=120)
-    volunteer = models.ForeignKey(Volunteer, null=True, on_delete=models.SET_NULL)
+    doer = models.ForeignKey(Doer, null=True, on_delete=models.SET_NULL)
 
     is_negative = models.BooleanField(default=False)
     is_positive = models.BooleanField(default=False)

@@ -9,8 +9,8 @@ def home_page(request):
     if request.user.is_authenticated:
         if request.user.is_staff:
             return redirect('staff:home')
-        elif request.user.is_volunteer:
-            return redirect('volunteer:home')
+        elif request.user.is_doer:
+            return redirect('doer:home')
         else:
             return render(request, 'home.html', {})
     else:
