@@ -4,7 +4,7 @@
 from random import randint
 
 from account.models import VolunteerWallet
-from core.models import Staff, User, Volunteer
+from core.models import Staff, User, Volunteer, Level
 from repository.models import Vendor, Project
 
 user_staff = User()
@@ -72,6 +72,25 @@ vendor = Vendor()
 vendor.name = 'Jabatan Perdana Menteri'
 vendor.type = 'GOVERNMENT'
 vendor.save()
+
+level = Level()
+level.code = 'EMAS'
+level.name = 'TAHAP EMAS'
+level.daily_task_count = 100
+level.save()
+
+level = Level()
+level.code = 'PERAK'
+level.name = 'TAHAP PERAK'
+level.daily_task_count = 50
+level.save()
+
+level = Level()
+level.code = 'GANGSA'
+level.name = 'TAHAP GANGSA'
+level.daily_task_count = 20
+level.save()
+
 
 # ==================================================================================================
 # Randomize Wallet

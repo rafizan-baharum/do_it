@@ -15,7 +15,7 @@ def index_page(request):
         .annotate(total=Sum('amount')) \
         .order_by('-total')
     context = {
-        'projects':projects,
+        'projects': projects,
         'earnings': earnings
     }
     return render(request, 'staff/index.html', context)
@@ -50,3 +50,18 @@ def project_delegate_page(request, pk):
     Project.objects.filter(pk=pk).update(status='DELEGATED')
     project_delegated.send(sender=None, project=project)
     return redirect('staff:project_detail', pk=pk)
+
+
+# todo(mudzaffar):
+def level_list_page(request):
+    pass
+
+
+# todo(mudzaffar):
+def level_detail_page(request, pk):
+    pass
+
+
+# todo(mudzaffar):
+def level_update_page(request, pk):
+    pass
