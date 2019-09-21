@@ -108,5 +108,6 @@ venv.bak/
 /.idea/modules.xml
 /.idea/inspectionProfiles/profiles_settings.xml
 /.idea/vcs.xml
-/dbv2.sqlite3
 /.idea/dataSources.xml
+/*.sqlite3
+/media/*.*
