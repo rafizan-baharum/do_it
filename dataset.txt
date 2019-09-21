@@ -1,1 +1,2 @@
-https://raw.githubusercontent.com/huseinzol05/Malaya-Dataset/
+https://github.com/huseinzol05/Malaya/tree/master/malaya
+https://github.com/huseinzol05/Malaya-Dataset/tree/master/insincere-question

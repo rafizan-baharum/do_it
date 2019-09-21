@@ -4,6 +4,7 @@ from random import randint
 from django.dispatch import Signal, receiver
 
 from core.models import Volunteer
+from repository.decorators import start_new_thread
 from repository.models import Task
 
 project_created = Signal(providing_args=["project"])
@@ -26,6 +27,11 @@ def project_delegated_handler(sender, **kwargs):
     # parse csv
     # create task
     # randomize task to participants
+    assign_random_task(project)
+
+
+@start_new_thread
+def assign_random_task(project):
     countVolunteer = Volunteer.objects.count()
     print(countVolunteer)
     with open(project.repository.path, 'r') as f:

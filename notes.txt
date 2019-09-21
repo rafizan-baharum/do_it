@@ -1,0 +1,2 @@
+https://books.agiliq.com/projects/django-api-polls-tutorial/en/latest/
+https://books.agiliq.com/projects/django-multi-tenant/en/latest/
