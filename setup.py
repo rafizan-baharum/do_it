@@ -46,7 +46,6 @@ for j in range(9):
     user_volunteer.last_Name = '{j+1}'
     user_volunteer.is_volunteer = True
     user_volunteer.save()
-
     volunteer = Volunteer()
     volunteer.user = User.objects.filter(username=f'volunteer{j + 1}').first()
     volunteer.nric_no = f'8{j + 1}0607-12-4431'
@@ -141,5 +140,3 @@ for i in range(len(selangorCities)):
 #     entry.save()
 
 print('Done')
-
-
