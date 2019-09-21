@@ -15,8 +15,6 @@ def index_page(request):
     volunteer_earnings = Volunteer.objects.all()\
         .annotate(total=Coalesce(Sum('volunteer_wallets__amount'), 0))\
         .order_by('-total')
-    for volunteer_earning in volunteer_earnings:
-        print(dir(volunteer_earning))
     context = {
         'projects': projects,
         'volunteer_earnings': volunteer_earnings

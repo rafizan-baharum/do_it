@@ -1,14 +1,25 @@
+from django.db.models import Sum, Count
+from django.db.models.functions import Coalesce
 from django.shortcuts import render, get_object_or_404
 
 # Create your views here.
 from account.signals import task_evaluated
 from core.models import Volunteer
-from repository.models import Task
-from volunteer.forms import PlayForm
+from repository.models import Task, Project
 
 
 def index_page(request):
-    return render(request, 'volunteer/index.html')
+    # todo(uda): view maybe?
+    incompleted_project_tasks = Project.objects.filter(project_tasks__volunteer=get_volunteer(request),
+                                                       project_tasks__is_negative=False,
+                                                       project_tasks__is_neutral=False,
+                                                       project_tasks__is_positive=False
+                                                       )\
+        .annotate(total=Coalesce(Count('project_tasks__volunteer'), 0))\
+        .order_by('total')
+
+    context = {'project_tasks': incompleted_project_tasks}
+    return render(request, 'volunteer/index.html', context)
 
 
 def play_page(request):

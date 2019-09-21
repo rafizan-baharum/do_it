@@ -19,6 +19,7 @@
                     <tr>
                         <th>Project</th>
                         <th>Vendor</th>
+                        <th class="text-right">Points</th>
                         <th class="text-right">Earnings</th>
                     </tr>
                     </thead>
@@ -27,6 +28,7 @@
                         <tr>
                             <td>{{ project.name }}</td>
                             <td>{{ project.vendor.name }}</td>
+                            <td>{{ project.task_point }}</td>
                             <td class="text-right">$999.00</td>
                         </tr>
                     {% endfor %}
@@ -41,9 +43,9 @@
                     <div class="table-responsive">
                         <table class="table table-top-countries">
                             <tbody>
-                            {% for earning in earnings %}
+                            {% for earning in volunteer_earnings %}
                                 <tr>
-                                    <td>{{ earning.volunteer }}</td>
+                                    <td>{{ earning.name }}</td>
                                     <td class="text-right">{{ earning.total | floatformat:2|intcomma }}</td>
                                 </tr>
                             {% endfor %}

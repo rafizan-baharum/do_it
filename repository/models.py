@@ -27,14 +27,14 @@ class Vendor(models.Model):
 
 class Project(models.Model):
     name = models.CharField(max_length=120)
-    vendor = models.ForeignKey(Vendor, null=True, on_delete=models.SET_NULL, related_name='repositories')
+    vendor = models.ForeignKey(Vendor, null=True, on_delete=models.SET_NULL, related_name='projects')
     repository = models.FileField(blank=True, null=True)  # data
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default=STATUS_CHOICES[0][0])
     task_point = models.IntegerField(default=0)
 
 
 class Task(models.Model):
-    project = models.ForeignKey(Project, null=True, on_delete=models.SET_NULL)
+    project = models.ForeignKey(Project, null=True, on_delete=models.SET_NULL, related_name='project_tasks')
     data = models.CharField(max_length=120)
     volunteer = models.ForeignKey(Volunteer, null=True, on_delete=models.SET_NULL)
 
