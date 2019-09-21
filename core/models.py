@@ -48,6 +48,8 @@ class Volunteer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     name = models.CharField(max_length=120)
     nric_no = models.CharField(max_length=120)
+    #  todo(mudzaffar): city - foreignkey City
+    # todo(mudzaffar): state - foreignkey State
 
 class Staff(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)

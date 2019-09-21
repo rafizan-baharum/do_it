@@ -4,7 +4,7 @@
 from random import randint
 
 from account.models import VolunteerWallet
-from core.models import Staff, User, Volunteer, Level
+from core.models import Staff, User, Volunteer, Level, State, City
 from repository.models import Vendor, Project
 
 user_staff = User()
@@ -91,6 +91,39 @@ level.name = 'TAHAP GANGSA'
 level.daily_task_count = 20
 level.save()
 
+state = State()
+state.code = 'WP'
+state.name = 'WILAYAH PERSEKUTUAN'
+state.save()
+
+state = State()
+state.code = 'SL'
+state.name = 'SELANGOR'
+state.save()
+
+state = State()
+state.code = 'PK'
+state.name = 'PERAK'
+state.save()
+
+state = State()
+state.code = 'NS'
+state.name = 'NEGERI SEMBILAN'
+state.save()
+
+state = State()
+state.code = 'MK'
+state.name = 'MELAKA'
+state.save()
+
+selangorCities = ['KLANG', 'HULU LANGAT', 'KUALA LANGAT', 'SEPANG', 'HULU SELANGOR', 'SABAK BERNAM', 'GOMBAK']
+
+for i in range(len(selangorCities)):
+    city = City()
+    city.code = f'S{i}'
+    city.name = selangorCities[i]
+    city.state = State.objects.filter(code='SL').first()
+    city.save()
 
 # ==================================================================================================
 # Randomize Wallet
