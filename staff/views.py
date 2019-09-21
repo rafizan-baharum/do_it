@@ -9,11 +9,15 @@ from staff.forms import ProjectModelForm
 
 
 def index_page(request):
+    projects = Project.objects.all()
     earnings = VolunteerWallet.objects.filter() \
         .values('volunteer') \
         .annotate(total=Sum('amount')) \
         .order_by('-total')
-    context = {'earnings': earnings}
+    context = {
+        'projects':projects,
+        'earnings': earnings
+    }
     return render(request, 'staff/index.html', context)
 
 

@@ -17,31 +17,19 @@
                 <table class="table table-borderless table-striped table-earning">
                     <thead>
                     <tr>
-                        <th>date</th>
-                        <th>order ID</th>
-                        <th>name</th>
-                        <th class="text-right">total</th>
+                        <th>Project</th>
+                        <th>Vendor</th>
+                        <th class="text-right">Earnings</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>2018-09-29 05:57</td>
-                        <td>100398</td>
-                        <td>iPhone X 64Gb Grey</td>
-                        <td class="text-right">$999.00</td>
-                    </tr>
-                    <tr>
-                        <td>2018-09-28 01:22</td>
-                        <td>100397</td>
-                        <td>Samsung S8 Black</td>
-                        <td class="text-right">$756.00</td>
-                    </tr>
-                    <tr>
-                        <td>2018-09-22 00:43</td>
-                        <td>100393</td>
-                        <td>USB 3.0 Cable</td>
-                        <td class="text-right">$30.00</td>
-                    </tr>
+                    {% for project in projects %}
+                        <tr>
+                            <td>{{ project.name }}</td>
+                            <td>{{ project.vendor.name }}</td>
+                            <td class="text-right">$999.00</td>
+                        </tr>
+                    {% endfor %}
                     </tbody>
                 </table>
             </div>

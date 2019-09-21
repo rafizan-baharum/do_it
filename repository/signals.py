@@ -14,12 +14,6 @@ project_delegated = Signal(providing_args=["project"])
 @receiver(project_created)
 def project_created_handler(sender, **kwargs):
     project = kwargs['project']
-    # parse json
-    # with open(project.repository.path, 'r') as f:
-    #     parsed_json = json.load(f)
-    #     for entry in parsed_json:
-    #         print(entry)
-
 
 @receiver(project_delegated)
 def project_delegated_handler(sender, **kwargs):
@@ -29,11 +23,9 @@ def project_delegated_handler(sender, **kwargs):
     # randomize task to participants
     assign_random_task(project)
 
-
 @start_new_thread
 def assign_random_task(project):
     countVolunteer = Volunteer.objects.count()
-    print(countVolunteer)
     with open(project.repository.path, 'r') as f:
         parsed_json = json.load(f)
         for entry in parsed_json:
