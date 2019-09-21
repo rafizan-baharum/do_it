@@ -2,9 +2,9 @@
 
 {% block classification-form %}
     <div class="login-form">
-        {% if task %}
+        {% if current_task %}
             <div class="form-group">
-                <h1>{{ task.data }}</h1>
+                <h1>{{ current_task.data }}</h1>
             </div>
             <div class="social-login-content">
                 <div class="social-button">
@@ -17,12 +17,12 @@
                 </div>
             </div>
             <div class="register-link">
-                <p>{{ taskCount }} tasks remaining</p>
+                <p>{{ task_count }} tasks remaining</p>
                 <p>
                     Back to <a href="/volunteer/home">Home</a>
                 </p>
             </div>
-        {% elif task %}
+        {% elif not current_task %}
             <div class="register-link">
                 <p>You currently have no task</p>
                 <p>
@@ -41,7 +41,7 @@
                 $.post(
                     "/volunteer/tasks/play",
                     {
-                        task_id: {{ task.id }},
+                        task_id: {{ current_task.id }},
                         sentiment: sentiment,
                         csrfmiddlewaretoken: '{{ csrf_token }}'
                     },

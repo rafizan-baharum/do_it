@@ -15,6 +15,7 @@ project_delegated = Signal(providing_args=["project"])
 def project_created_handler(sender, **kwargs):
     project = kwargs['project']
 
+
 @receiver(project_delegated)
 def project_delegated_handler(sender, **kwargs):
     project = kwargs['project']
@@ -23,30 +24,33 @@ def project_delegated_handler(sender, **kwargs):
     # randomize task to participants
     assign_random_task(project)
 
+
 @start_new_thread
 def assign_random_task(project):
     with open(project.repository.path, 'r') as f:
         parsed_json = json.load(f)
         for entry in parsed_json:
+            print(entry)
             task = Task()
             task.project = project
-            task = recommend_random_volunteer()
+            task.volunteer = recommend_random_volunteer()
             task.data = entry
             task.save()
 
 
 def recommend_random_volunteer():
-    countVolunteer = Volunteer.objects.count()
-    random_volunteer = randint(0, countVolunteer - 1)
+    count_volunteer = Volunteer.objects.count()
+    random_volunteer = randint(0, count_volunteer - 1)
     return Volunteer.objects.all()[random_volunteer]
+
 
 # todo(hafiz): recommendation engine based on data from data.gov
 def recommend_volunteer_from_area():
     pass
+
 
 # todo(alif): recommendation engine based on project tags
 def recommend_volunteer_from_area(project):
     # project.tags
     # feed into recommendation engine
     pass
-

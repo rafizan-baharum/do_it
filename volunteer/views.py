@@ -12,6 +12,7 @@ def index_page(request):
 
 
 def play_page(request):
+    current_task = None
     sentiment = request.POST.get('sentiment')
     task_id = request.POST.get('task_id')
     if sentiment:
@@ -28,9 +29,11 @@ def play_page(request):
         else:
             pass
     volunteer = get_volunteer(request)
-    taskCount = Task.objects.filter(volunteer=volunteer, is_negative=False, is_neutral=False, is_positive=False).count()
-    currentTask = Task.objects.filter(volunteer=volunteer, is_negative=False, is_neutral=False, is_positive=False)[0]
-    context = {'task': currentTask, 'taskCount': taskCount}
+    task_count = Task.objects.filter(volunteer=volunteer, is_negative=False, is_neutral=False,
+                                     is_positive=False).count()
+    if task_count > 0:
+        current_task = Task.objects.filter(volunteer=volunteer, is_negative=False, is_neutral=False, is_positive=False)[0]
+    context = {'current_task': current_task, 'task_count': task_count}
     return render(request, 'volunteer/play.html', context)
 
 
