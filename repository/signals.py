@@ -25,14 +25,22 @@ def project_delegated_handler(sender, **kwargs):
 
 @start_new_thread
 def assign_random_task(project):
-    countVolunteer = Volunteer.objects.count()
     with open(project.repository.path, 'r') as f:
         parsed_json = json.load(f)
         for entry in parsed_json:
-            random_volunteer = randint(0, countVolunteer - 1)
             task = Task()
             task.project = project
-            task.volunteer = Volunteer.objects.all()[random_volunteer]
+            task = recommend_random_volunteer()
             task.data = entry
             task.save()
+
+
+def recommend_random_volunteer():
+    countVolunteer = Volunteer.objects.count()
+    random_volunteer = randint(0, countVolunteer - 1)
+    return Volunteer.objects.all()[random_volunteer]
+
+# todo(hafiz): recommendation engine based on data from data.gov
+def recommend_volunteer_from_area():
+    pass
 
