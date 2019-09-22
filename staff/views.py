@@ -18,20 +18,27 @@ def index_page(request):
         .order_by('-total')
     context = {
         'projects': projects,
-        'doer_earnings': doer_earnings
+        'doer_earnings': doer_earnings,
+        'current_user': request.user,
     }
     return render(request, 'staff/index.html', context)
 
 
 def project_list_page(request):
     projects = Project.objects.all()
-    context = {'projects': projects}
+    context = {
+        'projects': projects,
+        'current_user': request.user
+    }
     return render(request, 'staff/project_list.html', context)
 
 
 def project_detail_page(request, pk):
     project = Project.objects.filter(pk=pk).first()
-    context = {'project': project}
+    context = {
+        'project': project,
+        'current_user': request.user
+    }
     return render(request, 'staff/project_detail.html', context)
 
 
@@ -83,18 +90,26 @@ def doer_detail_page(request, pk):
 def doer_update_page(request, pk):
     pass
 
+
 # todo(mudzaffar):
 def registration_list_page(request):
     registrations = Registration.objects.all()
-    context = {'registrations': registrations}
+    context = {
+        'registrations': registrations,
+        'current_user': request.user,
+    }
     return render(request, 'staff/registration_list.html', context)
 
 
 # todo(mudzaffar):
 def registration_detail_page(request, pk):
     registration = Registration.objects.filter(pk=pk).first()
-    context = {'registration': registration}
+    context = {
+        'registration': registration,
+        'current_user': request.user
+    }
     return render(request, 'staff/registration_detail.html', context)
+
 
 def registration_approve_page(request, pk):
     Registration.objects.filter(pk=pk).update(status='APPROVED')
@@ -109,13 +124,19 @@ def registration_update_page(request, pk):
 # todo(mudzaffar):
 def vendor_list_page(request):
     vendors = Vendor.objects.all()
-    context = {'vendors': vendors}
+    context = {
+        'vendors': vendors,
+        'current_user': request.user
+    }
     return render(request, 'staff/vendor_list.html', context)
 
 
 def vendor_detail_page(request, pk):
     vendor = Vendor.objects.filter(pk=pk).first()
-    context = {'vendor': vendor}
+    context = {
+        'vendor': vendor,
+        'current_user': request.user
+    }
     return render(request, 'staff/vendor_detail.html', context)
 
 
@@ -129,6 +150,7 @@ def vendor_create_page(request):
         return redirect('staff:vendor_list')
     else:
         return render(request, 'staff/vendor_create.html', context)
+
 
 def vendor_update_page(request, pk):
     pass
