@@ -18,9 +18,18 @@
                         <th>NAME</th>
                         <th>CITY</th>
                         <th>STATE</th>
-                        <th>STATUS</th>
+                        <th>ACTION</th>
                     </tr>
                     </thead>
+                    <tr>
+                        <td>890405050606</td>
+                        <td>MOHD ALIF HAIKAL ABD RAZAK</td>
+                        <td>PORT DICKSON</td>
+                        <td>NEGERI SEMBILAN</td>
+                        <td><input type="button" value="Approve" class="btn btn-success">
+                            <input type="button" value="Decline" class="btn btn-danger">
+                        </td>
+                    </tr>
 
                     {% for registration in registrations %}
                         <tr class='clickable-row' data-href='/staff/registrations/{{ registration.id }}'>
@@ -37,7 +46,8 @@
                                 {{ registration.state.name }}
                             </td>
                             <td>
-                                {{ registration.status }}
+                                <input type="button" value="Approve">
+                                <input type="button" value="Decline">
                             </td>
                         </tr>
                     {% endfor %}
