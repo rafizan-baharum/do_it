@@ -1,0 +1,95 @@
+{% extends "base_staff.html" %}
+{% block main-content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="overview-wrap">
+                <h2 class="title-1">Doer List</h2>
+                <button class="au-btn au-btn-icon au-btn--blue" onclick="addDoer()">
+                    <i class="zmdi zmdi-plus"></i>Add
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 m-t-25">
+            <div class="table-responsive m-b-40">
+                <table class="table table-borderless table-striped table-data3">
+                    <thead>
+                    <tr>
+                        <th>NAME</th>
+                        <th>NRIC_NO</th>
+                        <th>GENDER</th>
+                        <th>INCOME</th>
+                        <th>LEVEL</th>
+                    </tr>
+                    </thead>
+
+                    {% for doer in doers %}
+                        <tr class='clickable-row' data-href='/staff/doers/{{ doer.pk }}'>
+                            <td>
+                                {{ doer.name }}
+                            </td>
+                            <td>
+                                {{ doer.nric_no }}
+                            </td>
+                            <td>
+                                {{ doer.gender }}
+                            </td>
+                            <td>
+                                {{ doer.income }}
+                            </td>
+                            <td>
+                                {{ doer.level.name }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+
+                {% if doers.has_other_pages %}
+                    <nav>
+                        <ul class="pagination">
+                            {% if doers.has_previous %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ doers.previous_page_number }}">&laquo;</a>
+                                </li>
+                                {#                            {% else %}#}
+                                {#                                <li class="page-item"><span>&laquo;</span></li>#}
+                            {% endif %}
+                            {% for i in doers.paginator.page_range %}
+                                {% if doers.number == i %}
+                                    <li class="page-item active">
+                                        <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                                    </li>
+                                {% else %}
+                                    <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                                {% endif %}
+                            {% endfor %}
+                            {% if doers.has_next %}
+                                <li class="page-item"><a class="page-link"
+                                                         href="?page={{ doers.next_page_number }}">&raquo;</a>
+                                </li>
+                                {#                            {% else %}#}
+                                {#                                <li class="page-item"><span>&raquo;</span></li>#}
+                            {% endif %}
+                        </ul>
+                    </nav>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block main-js %}
+    <script>
+        jQuery(document).ready(function ($) {
+            $(".clickable-row").click(function () {
+                window.location = $(this).data("href");
+            });
+        });
+
+        function addDoer() {
+            window.location.assign('/staff/doers/create/');
+        }
+    </script>
+{% endblock %}

@@ -69,19 +69,21 @@ def level_update_page(request, pk):
     pass
 
 
-# todo(mudzaffar):
 def doer_list_page(request):
-    pass
+    doers = Doer.objects.all()
+    context = {'doers': doers}
+    return render(request, 'staff/doer_list.html', context)
 
 
-# todo(mudzaffar):
 def doer_detail_page(request, pk):
-    pass
+    doer = Doer.objects.filter(pk=pk).first()
+    context = {'doer': doer}
+    return render(request, 'staff/doer_detail.html', context)
 
 
-# todo(mudzaffar):
 def doer_update_page(request, pk):
     pass
+
 
 # todo(mudzaffar):
 def registration_list_page(request):
@@ -95,6 +97,7 @@ def registration_detail_page(request, pk):
     registration = Registration.objects.filter(pk=pk).first()
     context = {'registration': registration}
     return render(request, 'staff/registration_detail.html', context)
+
 
 def registration_approve_page(request, pk):
     Registration.objects.filter(pk=pk).update(status='APPROVED')
@@ -129,6 +132,7 @@ def vendor_create_page(request):
         return redirect('staff:vendor_list')
     else:
         return render(request, 'staff/vendor_create.html', context)
+
 
 def vendor_update_page(request, pk):
     pass
