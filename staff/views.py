@@ -3,7 +3,7 @@ from django.db.models.functions import Coalesce
 from django.shortcuts import render, redirect
 
 # Create your views here.
-from account.models import DoerWallet
+from account.models import DoerWallet, Withdrawal
 from core.models import Doer
 from repository.models import Project, Vendor
 from repository.signals import project_created, project_delegated
@@ -155,3 +155,26 @@ def vendor_create_page(request):
 
 def vendor_update_page(request, pk):
     pass
+
+
+def withdrawal_list_page(request):
+    withdrawals = Withdrawal.objects.all()
+    context = {
+        'withdrawals': withdrawals,
+        'current_user': request.user,
+    }
+    return render(request, 'staff/withdrawal_list.html', context)
+
+
+def withdrawal_detail_page(request, pk):
+    withdrawal = Withdrawal.objects.filter(pk=pk).first()
+    context = {
+        'withdrawal': withdrawal,
+        'current_user': request.user
+    }
+    return render(request, 'staff/withdrawal_detail.html', context)
+
+
+def withdrawal_approve_page(request, pk):
+    Withdrawal.objects.filter(pk=pk).update(status='APPROVED')
+    return redirect('staff:withdrawal_detail', pk=pk)

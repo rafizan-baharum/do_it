@@ -1,0 +1,89 @@
+{% extends "base_doer.html" %}
+{% block main-content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="overview-wrap">
+                <h2 class="title-1">Withdrawal List</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 m-t-25">
+            <div class="table-responsive m-b-40">
+                <table class="table table-borderless table-striped table-data3">
+                    <thead>
+                    <tr>
+                        <th>REQUESTER</th>
+                        <th>AMOUNT</th>
+                        <th>DATE</th>
+                        <th>STATUS</th>
+                        <th>ACTION</th>
+                    </tr>
+                    </thead>
+
+                    {% for withdrawal in withdrawals %}
+                        <tr class='clickable-row' data-href='/doer/withdrawals/{{ withdrawal.id }}'>
+                            <td>
+                                {{ withdrawal.doer.name }}
+                            </td>
+                            <td>
+                                {{ withdrawal.amount }}
+                            </td>
+                            <td>
+                                {{ withdrawal.withdraw_date }}
+                            </td>
+                            <td>
+                                {{ withdrawal.status }}
+                            </td>
+                            <td>
+                                <input type="button" value="Approve" class="btn btn-success">
+                                <input type="button" value="Decline" class="btn btn-danger">
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+
+                {% if withdrawals.has_other_pages %}
+                    <nav>
+                        <ul class="pagination">
+                            {% if withdrawals.has_previous %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ withdrawals.previous_page_number }}">&laquo;</a>
+                                </li>
+                                {#                            {% else %}#}
+                                {#                                <li class="page-item"><span>&laquo;</span></li>#}
+                            {% endif %}
+                            {% for i in withdrawals.paginator.page_range %}
+                                {% if withdrawals.number == i %}
+                                    <li class="page-item active">
+                                        <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                                    </li>
+                                {% else %}
+                                    <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                                {% endif %}
+                            {% endfor %}
+                            {% if withdrawals.has_next %}
+                                <li class="page-item"><a class="page-link"
+                                                         href="?page={{ withdrawals.next_page_number }}">&raquo;</a>
+                                </li>
+                                {#                            {% else %}#}
+                                {#                                <li class="page-item"><span>&raquo;</span></li>#}
+                            {% endif %}
+                        </ul>
+                    </nav>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block main-js %}
+    <script>
+        jQuery(document).ready(function ($) {
+            $(".clickable-row").click(function () {
+                window.location = $(this).data("href");
+            });
+        });
+    </script>
+{% endblock %}
