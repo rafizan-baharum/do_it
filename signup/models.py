@@ -22,10 +22,6 @@ GENDER_CHOICES = (
     ('MALE', 'MALE'),
     ('FEMALE', 'FEMALE'))
 
-REGISTRATION_CHOICES = (
-    ('STAFF', 'STAFF'),
-    ('DOER', 'DOER'))
-
 RACE_CHOICES = (
     ('MALAY', 'MALAY'),
     ('CHINESE', 'CHINESE'),
@@ -37,7 +33,17 @@ STATUS_REGISTRATION = (
     ('APPROVED', 'APPROVED'),
     ('REJECTED', 'REJECTED'),)
 
-"""State"""
+STATE_CHOICE = (
+    ('SELANGOR', 'SELANGOR'),
+    ('PERAK', 'PERAK'),
+    ('PAHANG', 'PAHANG')
+)
+
+CITY_CHOICE = (
+    ('SHAH ALAM', 'SHAH ALAM'),
+    ('IPOH', 'IPOH'),
+    ('KUANTAN', 'KUANTAN')
+)
 
 
 class StateQuerySet(models.QuerySet):
@@ -169,15 +175,14 @@ class Registration(models.Model):
     nric_no = models.CharField(max_length=20, null=False, blank=False)
     name = models.CharField(max_length=120)
     password = models.CharField(max_length=1000, null=False)
-    registration = models.CharField(max_length=20, choices=REGISTRATION_CHOICES, default='REGISTERED')
     address1 = models.CharField(max_length=120, blank=False, null=True)
     address2 = models.CharField(max_length=120, blank=False, null=True)
     address3 = models.CharField(max_length=120, blank=True, null=True)
-    birth_date = models.DateField(null=False, blank=False, default='DEFAULT_VALUE')
+    birth_date = models.DateField(null=True, blank=True, )
     gender = models.CharField(max_length=20, choices=GENDER_CHOICES, null=True)
     race = models.CharField(max_length=60, choices=RACE_CHOICES, null=True)
-    city = models.ForeignKey(City, null=True, on_delete=models.SET_NULL)
-    state = models.ForeignKey(State, null=True, on_delete=models.SET_NULL)
+    city = models.ForeignKey(City, null=True, choices=CITY_CHOICE, on_delete=models.SET_NULL)
+    state = models.ForeignKey(State, null=True, choices=STATE_CHOICE, on_delete=models.SET_NULL)
 
     created_date = models.DateTimeField(auto_now_add=True)
     modified_date = models.DateTimeField(auto_now=True)
