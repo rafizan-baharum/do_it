@@ -9,39 +9,44 @@
         </div>
     </div>
 
-    <section>
-        <div class="section__content section__content--p30">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-xl-12">
-                        <!-- TASK PROGRESS-->
-                        <div class="task-progress">
-                            <h3 class="title-3">Task Progress</h3>
+    <div class="row">
+        <div class="col-md-12 m-t-25">
+            <div class="table-responsive m-b-40">
+                <table class="table table-borderless table-striped table-data3">
+                    <thead>
+                    <tr>
+                        <th>NAME</th>
+                        <th>VENDOR</th>
+                        <th>TASKS</th>
+                    </tr>
+                    </thead>
 
-                            {% for project_task in project_tasks %}
-                                <div class="au-skill-container">
-                                    <div class="au-progress">
-                                        <span class="au-progress__title">{{ project_task.name }} ({{ project_task.total }})</span>
-                                        <div class="au-progress__bar">
-                                            <div class="au-progress__inner js-progressbar-simple" role="progressbar"
-                                                 data-transitiongoal="{{ project_task.total }}">
-{#                                                <span class="au-progress__value js-value"></span>#}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            {% endfor %}
-                        </div>
-                        <!-- END TASK PROGRESS-->
-                    </div>
-                </div>
+                    {% for project_task in project_tasks %}
+                        <tr class='clickable-row' data-href='/doer/tasks/play/{{ project_task.id }}'>
+                            <td>
+                                {{ project_task.name }}
+                            </td>
+                            <td>
+                                {{ project_task.vendor.name }}
+                            </td>
+                            <td>
+                                {{ project_task.total }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
             </div>
         </div>
-    </section>
-
+    </div>
 
 {% endblock %}
 
 {% block main-js %}
-    <script></script>
+    <script>
+        jQuery(document).ready(function ($) {
+            $(".clickable-row").click(function () {
+                window.location = $(this).data("href");
+            });
+        });
+    </script>
 {% endblock %}

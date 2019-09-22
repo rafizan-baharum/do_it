@@ -23,14 +23,14 @@ def index_page(request):
 
 
 def project_list_page(request):
-    projects = Project.objects.filter(project_tasks__doer=get_doer(request),
+    project_tasks = Project.objects.filter(project_tasks__doer=get_doer(request),
                                       project_tasks__is_negative=False,
                                       project_tasks__is_neutral=False,
                                       project_tasks__is_positive=False
                                       ) \
         .annotate(total=Coalesce(Count('project_tasks__doer'), 0)) \
         .order_by('total')
-    context = {'projects': projects}
+    context = {'project_tasks': project_tasks}
     return render(request, 'doer/project_list.html', context)
 
 
