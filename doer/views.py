@@ -19,9 +19,11 @@ def index_page(request):
                                                        ) \
         .annotate(total=Coalesce(Count('project_tasks__doer'), 0)) \
         .order_by('total')
+    recent_withdrawals = Withdrawal.objects.filter(doer=get_doer(request), status='APPROVED')[:5]
 
     context = {
         'project_tasks': incompleted_project_tasks,
+        'recent_withdrawals': recent_withdrawals,
         'current_user': request.user
     }
     return render(request, 'doer/index.html', context)
@@ -84,14 +86,15 @@ def play_page(request, pk):
 
 
 def withdrawal_list_page(request):
-    withdrawals = Withdrawal.objects.filter(doer=get_doer(request))
+    withdrawals = Withdrawal.objects.filter(doer=get_doer(request)).order_by('-created_date')
     context = {
         'withdrawals': withdrawals,
     }
     return render(request, 'doer/withdrawal_list.html', context)
 
+
 def withdrawal_create_page(request):
-    form = WithdrawalModelForm(request.POST or None)
+    form = WithdrawalModelForm(request.POST or None, initial={'amount': '10.00'})
     context = {'form': form}
     if form.is_valid():
         obj = form.save(commit=False)
@@ -109,6 +112,6 @@ def withdrawal_detail_page(request, pk):
     }
     return render(request, 'doer/withdrawal_detail.html', context)
 
+
 def get_doer(request):
     return get_object_or_404(Doer, user=request.user)
-

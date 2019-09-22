@@ -18,4 +18,9 @@ def task_evaluated_handler(sender, **kwargs):
 
 @receiver(withdrawal_approved)
 def withdrawal_approved_handler(sender, **kwargs):
-    pass
+    withdrawal = kwargs['withdrawal']
+    wallet = DoerWallet()
+    wallet.doer = withdrawal.doer
+    wallet.project = None
+    wallet.amount = withdrawal.amount * -1
+    wallet.save()
