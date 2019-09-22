@@ -1,11 +1,14 @@
 # ==================================================================================================
 # # User
 # ==================================================================================================
+import datetime
 from random import randint
 
 from account.models import DoerWallet
 from core.models import Staff, User, Doer, Level, State, City
 from repository.models import Vendor, Project
+from signup.models import INCOME_CHOICES, RACE_CHOICES, GENDER_CHOICES
+
 level = Level()
 level.code = 'EMAS'
 level.name = 'TAHAP EMAS'
@@ -101,8 +104,15 @@ for j in range(9):
     doer = Doer()
     doer.user = User.objects.filter(username=f'doer{j + 1}').first()
     doer.nric_no = f'8{j + 1}0607-12-4431'
+    doer.email = f'email{j + 1}@gmail.com'
     doer.name = 'Siti Fariha Ahmad'
+    doer.birth_date = datetime.date(2019, 9, j + 1)
     doer.level = Level.objects.filter(code='GANGSA').first()
+    doer.gender = GENDER_CHOICES[0][0]
+    doer.race = RACE_CHOICES[0][0]
+    doer.income = INCOME_CHOICES[0][0]
+    doer.city = City.objects.first()
+    doer.state = State.objects.first()
     doer.save()
 
 vendor = Vendor()

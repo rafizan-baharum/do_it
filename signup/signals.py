@@ -8,16 +8,16 @@ def registration_approved_created_handler(sender, **kwargs):
     registration = kwargs['registration']
 
     # todo(mudzaffar):
-    # user_volunteer = User()
-    # user_volunteer.password = 'pbkdf2_sha256$150000$kxgoZc1nqo7D$yQUXU5W2GN05Osmwy+PA1yB66W/IJkcsEzB2rdz2B3Y='
-    # user_volunteer.username = f'doer{j + 1}'
-    # user_volunteer.email = f'doer{j + 1}@gmail.com'
-    # user_volunteer.first_name = 'Volunteer'
-    # user_volunteer.last_Name = '{j+1}'
-    # user_volunteer.is_volunteer = True
-    # user_volunteer.save()
+    # user_doer = User()
+    # user_doer.password = 'pbkdf2_sha256$150000$kxgoZc1nqo7D$yQUXU5W2GN05Osmwy+PA1yB66W/IJkcsEzB2rdz2B3Y='
+    # user_doer.username = f'doer{j + 1}'
+    # user_doer.email = f'doer{j + 1}@gmail.com'
+    # user_doer.first_name = 'Doer'
+    # user_doer.last_Name = '{j+1}'
+    # user_doer.is_doer = True
+    # user_doer.save()
     #
-    # doer = Volunteer()
+    # doer = Doer()
     # doer.user = User.objects.filter(username=f'doer{j + 1}').first()
     # doer.nric_no = f'8{j + 1}0607-12-4431'
     # doer.name = 'Siti Fariha Ahmad'

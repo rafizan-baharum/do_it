@@ -15,28 +15,7 @@ from django.db.models import Q
 # state
 # birth_date
 # status : REGISTERED, APPROVED, REJECTED
-from core.models import City, State
-
-"""Choices"""
-
-GENDER_CHOICES = (
-    ('MALE', 'MALE'),
-    ('FEMALE', 'FEMALE'))
-
-RACE_CHOICES = (
-    ('MALAY', 'MALAY'),
-    ('CHINESE', 'CHINESE'),
-    ('INDIAN', 'INDIAN'),
-    ('OTHERS', 'OTHERS'),)
-
-STATUS_CHOICES = (
-    ('REGISTERED', 'REGISTERED'),
-    ('APPROVED', 'APPROVED'),
-    ('REJECTED', 'REJECTED'),)
-
-INCOME_CHOICES = (
-    ('B40', 'ANTARA 1000-4000 SEBULAN'),
-    ('M40', 'ANTARA 4000-9000 SEBULAN'),)
+from core.models import City, State, GENDER_CHOICES, RACE_CHOICES, INCOME_CHOICES, STATUS_CHOICES
 
 """REGISTRATION """
 
@@ -69,7 +48,6 @@ class RegistrationManager(models.Manager):
 
 class Registration(models.Model):
     # id = models.IntegerField() # pk
-    # creator    = models.ForeignKey(Registration, default=1, null=True, on_delete=models.SET_NULL)
     nric_no = models.CharField(max_length=20, null=False, blank=False)
     email = models.EmailField(max_length=60, null=False, blank=False)
     name = models.CharField(max_length=120)
