@@ -36,7 +36,7 @@ def project_detail_page(request, pk):
 
 
 def project_create_page(request):
-    form = ProjectModelForm(request.POST, request.FILES or None)
+    form = ProjectModelForm(request.POST or None)
     context = {'form': form}
     if form.is_valid():
         obj = form.save(commit=False)
@@ -97,11 +97,8 @@ def registration_detail_page(request, pk):
     return render(request, 'staff/registration_detail.html', context)
 
 def registration_approve_page(request, pk):
-    registration = Registration.objects.filter(pk=pk).first()
-    # todo(mudzaffar): add status: REGISTERED, APPROVED, REJECTED registration.status = 'APPROVED'
-    # Registration.objects.filter(pk=pk).update(status='APPROVED')
-    context = {'registration': registration}
-    return render(request, 'staff/registration_detail.html', context)
+    Registration.objects.filter(pk=pk).update(status='APPROVED')
+    return redirect('staff:registration_detail', pk=pk)
 
 
 # todo(mudzaffar):
