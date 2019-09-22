@@ -4,6 +4,7 @@ from django.shortcuts import render, redirect
 
 # Create your views here.
 from account.models import DoerWallet, Withdrawal
+from account.signals import withdrawal_approved
 from core.models import Doer
 from repository.models import Project, Vendor
 from repository.signals import project_created, project_delegated
@@ -176,7 +177,9 @@ def withdrawal_detail_page(request, pk):
 
 
 def withdrawal_approve_page(request, pk):
+    withdrawal = Withdrawal.objects.filter(pk=pk).first()
     Withdrawal.objects.filter(pk=pk).update(status='APPROVED')
+    withdrawal_approved.send(sender=None, withdrawal=withdrawal)
     return redirect('staff:withdrawal_list')
 
 

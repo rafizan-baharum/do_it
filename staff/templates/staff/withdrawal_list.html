@@ -1,4 +1,4 @@
-{% extends "base_doer.html" %}
+{% extends "base_staff.html" %}
 {% block main-content %}
     <div class="row">
         <div class="col-md-12">
@@ -37,10 +37,12 @@
                                 {{ withdrawal.status }}
                             </td>
                             <td>
-                                <input data-id="{{ withdrawal.id }}" type="button" value="Approve"
-                                       class="btn btn-success approve_btn">
-                                <input data-id="{{ withdrawal.id }}" type="button" value="Decline"
-                                       class="btn btn-danger decline_btn">
+                                {% if withdrawal.status == 'REQUESTED' %}
+                                    <input data-id="{{ withdrawal.id }}" type="button" value="Approve"
+                                           class="btn btn-success approve_btn">
+                                    <input data-id="{{ withdrawal.id }}" type="button" value="Decline"
+                                           class="btn btn-danger decline_btn">
+                                {% endif %}
                             </td>
                         </tr>
                     {% endfor %}
