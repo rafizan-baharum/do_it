@@ -49,8 +49,9 @@ class Doer(models.Model):
     name = models.CharField(max_length=120)
     nric_no = models.CharField(max_length=120)
     level = models.ForeignKey(Level, null=True, on_delete=models.SET_NULL)
-    #  todo(mudzaffar): city - foreignkey City
-    # todo(mudzaffar): state - foreignkey State
+    city = models.ForeignKey(City, null=True, on_delete=models.SET_NULL)
+    state = models.ForeignKey(State, null=True, on_delete=models.SET_NULL)
+
 
 class Staff(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)

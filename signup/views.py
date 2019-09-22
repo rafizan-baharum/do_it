@@ -13,4 +13,5 @@ def registration_create_page(request):
         obj.save()
         context = {'registration': obj}
         return render(request, 'signup/confirmation.html', 'context')
-    return render(request, 'signup/register.html', context)
+    else:
+        return render(request, 'signup/register.html', context)
