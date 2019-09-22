@@ -102,7 +102,7 @@ def doer_detail_page(request, pk):
         'from repository_task t join repository_project rp on t.project_id = rp.id '
         'where t.doer_id = %s '
         'and (is_negative = true or is_positive= true or is_neutral=true) '
-        'group by t.doer_id', pk)
+        'group by t.doer_id', [pk])
 
     collected_point = 0
     if len(collectedPointResult) > 0:
