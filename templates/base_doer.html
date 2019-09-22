@@ -71,8 +71,14 @@
                         </a>
                     </li>
                     <li>
-                        <a href="/doer/tasks/play">
-                            <i class="fas fa-chart-bar"></i>Tasks</a>
+                        <a href="/doer/projects/list">
+                            <i class="fas fa-chart-bar"></i>Tasks
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/accounts/logout">
+                            <i class="fas fa-chart-bar"></i>Logout
+                        </a>
                     </li>
                 </ul>
             </div>
@@ -91,6 +97,37 @@
             <div class="section__content section__content--p30">
                 <div class="container-fluid">
                     <div class="header-wrap">
+                        <div></div>
+                        <div class="header-button">
+                            <div class="noti-wrap">
+                            </div>
+                            <div class="account-wrap">
+                                <div class="account-item clearfix js-item-menu">
+                                    <div class="content">
+                                        <a class="js-acc-btn" href="#">{{ current_user }}</a>
+                                    </div>
+                                    <div class="account-dropdown js-dropdown">
+                                        <div class="info clearfix">
+                                            <div class="content">
+                                                <h5 class="name">
+                                                    <a href="#">{{ current_user }}</a>
+                                                </h5>
+                                            </div>
+                                        </div>
+                                        <div class="account-dropdown__body">
+                                            <div class="account-dropdown__item">
+                                                <a href="#">
+                                                    <i class="zmdi zmdi-account"></i>Account</a>
+                                            </div>
+                                        </div>
+                                        <div class="account-dropdown__footer">
+                                            <a href="/accounts/logout">
+                                                <i class="zmdi zmdi-power"></i>Logout</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

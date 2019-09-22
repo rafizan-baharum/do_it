@@ -18,19 +18,25 @@ def index_page(request):
         .annotate(total=Coalesce(Count('project_tasks__doer'), 0)) \
         .order_by('total')
 
-    context = {'project_tasks': incompleted_project_tasks}
+    context = {
+        'project_tasks': incompleted_project_tasks,
+        'current_user': request.user
+    }
     return render(request, 'doer/index.html', context)
 
 
 def project_list_page(request):
     project_tasks = Project.objects.filter(project_tasks__doer=get_doer(request),
-                                      project_tasks__is_negative=False,
-                                      project_tasks__is_neutral=False,
-                                      project_tasks__is_positive=False
-                                      ) \
+                                           project_tasks__is_negative=False,
+                                           project_tasks__is_neutral=False,
+                                           project_tasks__is_positive=False
+                                           ) \
         .annotate(total=Coalesce(Count('project_tasks__doer'), 0)) \
         .order_by('total')
-    context = {'project_tasks': project_tasks}
+    context = {
+        'project_tasks': project_tasks,
+        'current_user': request.user
+    }
     return render(request, 'doer/project_list.html', context)
 
 
@@ -69,7 +75,8 @@ def play_page(request, pk):
     context = {
         'project': project,
         'current_task': current_task,
-        'task_count': task_count
+        'task_count': task_count,
+        'current_user': request.user
     }
     return render(request, 'doer/play.html', context)
 
