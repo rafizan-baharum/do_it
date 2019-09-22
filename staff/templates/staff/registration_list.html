@@ -18,6 +18,7 @@
                         <th>NAME</th>
                         <th>CITY</th>
                         <th>STATE</th>
+                        <th>STATUS</th>
                     </tr>
                     </thead>
 
@@ -34,6 +35,9 @@
                             </td>
                             <td>
                                 {{ registration.state.name }}
+                            </td>
+                            <td>
+                                {{ registration.status }}
                             </td>
                         </tr>
                     {% endfor %}

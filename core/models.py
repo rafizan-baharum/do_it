@@ -27,7 +27,15 @@ class City(models.Model):
     created_date = models.DateTimeField(auto_now_add=True)
     modified_date = models.DateTimeField(auto_now=True)
 
-# todo(hafiz): link with Doer
+    class Meta:
+        ordering = ['-modified_date']
+        verbose_name_plural = "Cities"
+
+
+    def __str__(self):
+        return f"{self.code}:{self.name}"
+
+
 # todo(hafiz): figure out how to level-up doer
 class Level(models.Model):
     # id = models.IntegerField() # pk
@@ -49,8 +57,11 @@ class Doer(models.Model):
     name = models.CharField(max_length=120)
     nric_no = models.CharField(max_length=120)
     level = models.ForeignKey(Level, null=True, on_delete=models.SET_NULL)
+    # income choices
+
     #  todo(mudzaffar): city - foreignkey City
     # todo(mudzaffar): state - foreignkey State
+
 
 class Staff(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
