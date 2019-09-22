@@ -1,3 +1,4 @@
+from django.contrib.auth.hashers import make_password
 from django.dispatch import receiver, Signal
 
 from core.models import User, Doer, Level
@@ -9,7 +10,7 @@ def registration_approved_created_handler(sender, **kwargs):
     registration = kwargs['registration']
 
     user_doer = User()
-    user_doer.password = registration.password
+    user_doer.password = make_password(registration.password)
     user_doer.username = registration.email
     user_doer.email = registration.email
     user_doer.first_name = registration.name
