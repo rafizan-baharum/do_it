@@ -1,10 +1,10 @@
-{% extends "base_staff.html" %}
+{% extends "base_doer.html" %}
 {% block main-content %}
     <div class="row">
         <div class="col-md-12">
             <div class="overview-wrap">
-                <h2 class="title-1">Doer List</h2>
-                <button class="au-btn au-btn-icon au-btn--blue" onclick="addDoer()">
+                <h2 class="title-1">Withdrawal List</h2>
+                <button class="au-btn au-btn-icon au-btn--blue" onclick="addWithdrawal()">
                     <i class="zmdi zmdi-plus"></i>Add
                 </button>
             </div>
@@ -17,47 +17,39 @@
                 <table class="table table-borderless table-striped table-data3">
                     <thead>
                     <tr>
-                        <th>NAME</th>
-                        <th>NRIC_NO</th>
-                        <th>GENDER</th>
-                        <th>INCOME</th>
-                        <th>LEVEL</th>
+                        <th>AMOUNT</th>
+                        <th>DATE</th>
+                        <th>STATUS</th>
                     </tr>
                     </thead>
 
-                    {% for doer in doers %}
-                        <tr class='clickable-row' data-href='/staff/doers/{{ doer.pk }}'>
+                    {% for withdrawal in withdrawals %}
+                        <tr class='clickable-row' data-href='/doer/withdrawals/{{ withdrawal.id }}'>
                             <td>
-                                {{ doer.name }}
+                                {{ withdrawal.amount }}
                             </td>
                             <td>
-                                {{ doer.nric_no }}
+                                {{ withdrawal.withdraw_date }}
                             </td>
                             <td>
-                                {{ doer.gender }}
-                            </td>
-                            <td>
-                                {{ doer.income }}
-                            </td>
-                            <td>
-                                {{ doer.level.name }}
+                                {{ withdrawal.status }}
                             </td>
                         </tr>
                     {% endfor %}
                 </table>
 
-                {% if doers.has_other_pages %}
+                {% if withdrawals.has_other_pages %}
                     <nav>
                         <ul class="pagination">
-                            {% if doers.has_previous %}
+                            {% if withdrawals.has_previous %}
                                 <li class="page-item">
-                                    <a class="page-link" href="?page={{ doers.previous_page_number }}">&laquo;</a>
+                                    <a class="page-link" href="?page={{ withdrawals.previous_page_number }}">&laquo;</a>
                                 </li>
                                 {#                            {% else %}#}
                                 {#                                <li class="page-item"><span>&laquo;</span></li>#}
                             {% endif %}
-                            {% for i in doers.paginator.page_range %}
-                                {% if doers.number == i %}
+                            {% for i in withdrawals.paginator.page_range %}
+                                {% if withdrawals.number == i %}
                                     <li class="page-item active">
                                         <a class="page-link" href="?page={{ i }}">{{ i }}</a>
                                     </li>
@@ -65,9 +57,9 @@
                                     <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
                                 {% endif %}
                             {% endfor %}
-                            {% if doers.has_next %}
+                            {% if withdrawals.has_next %}
                                 <li class="page-item"><a class="page-link"
-                                                         href="?page={{ doers.next_page_number }}">&raquo;</a>
+                                                         href="?page={{ withdrawals.next_page_number }}">&raquo;</a>
                                 </li>
                                 {#                            {% else %}#}
                                 {#                                <li class="page-item"><span>&raquo;</span></li>#}
@@ -88,8 +80,8 @@
             });
         });
 
-        function addDoer() {
-            window.location.assign('/staff/doers/create/');
+        function addWithdrawal() {
+            window.location.assign('/doer/withdrawals/create/');
         }
     </script>
 {% endblock %}

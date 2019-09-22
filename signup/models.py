@@ -2,19 +2,6 @@ from django.db import models
 from django.db.models import Q
 
 # Create your models here.
-# todo(mudzaffar):
-#  class Registration
-# name
-# nric_no
-# gender
-# race
-# address1
-# address2
-# address3
-# city
-# state
-# birth_date
-# status : REGISTERED, APPROVED, REJECTED
 from core.models import City, State, GENDER_CHOICES, RACE_CHOICES, INCOME_CHOICES, STATUS_CHOICES
 
 """REGISTRATION """

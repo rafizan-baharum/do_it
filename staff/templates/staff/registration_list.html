@@ -14,7 +14,7 @@
                 <table class="table table-borderless table-striped table-data3">
                     <thead>
                     <tr>
-                        <th>NRIC_NO</th>
+                        <th>NRIC NO</th>
                         <th>NAME</th>
                         <th>CITY</th>
                         <th>STATE</th>
@@ -26,7 +26,8 @@
                         <td>MOHD ALIF HAIKAL ABD RAZAK</td>
                         <td>PORT DICKSON</td>
                         <td>NEGERI SEMBILAN</td>
-                        <td><input type="button" value="Approve" class="btn btn-success">
+                        <td>
+                            <input type="button" value="Approve" class="btn btn-success">
                             <input type="button" value="Decline" class="btn btn-danger">
                         </td>
                     </tr>
@@ -46,8 +47,8 @@
                                 {{ registration.state.name }}
                             </td>
                             <td>
-                                <input type="button" value="Approve">
-                                <input type="button" value="Decline">
+                                <input type="button" value="Approve" class="btn btn-success">
+                                <input type="button" value="Decline" class="btn btn-danger">
                             </td>
                         </tr>
                     {% endfor %}

@@ -2,6 +2,7 @@ from django.shortcuts import render
 
 # Create your views here.
 from signup.forms import RegistrationModelForm
+from signup.signals import registration_approved
 
 
 def registration_create_page(request):
@@ -12,5 +13,6 @@ def registration_create_page(request):
         obj.user = request.user
         obj.save()
         context = {'registration': obj}
+        registration_approved.send(sender=None, registration=obj)
         return render(request, 'signup/confirmation.html', context)
     return render(request, 'signup/register.html', context)
