@@ -1,5 +1,7 @@
 {% load static %}
 
+{% load humanize %}
+
 <aside class="menu-sidebar d-none d-lg-block">
     <div class="logo">
         <a href="/doer/home">
@@ -12,7 +14,7 @@
                 <img src="{% static 'images/icon/avatar-big-01.jpg' %}" alt="Siti Raudah"/>
             </div>
             <h4 class="name">Siti Raudah</h4>
-            <p>100,00 DoIT Points</p>
+            <p>{{ request.session.sum_wallet | floatformat:2 | intcomma }} DoIT Points</p>
         </div>
 
         <nav class="navbar-sidebar">
