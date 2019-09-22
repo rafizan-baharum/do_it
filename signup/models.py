@@ -15,6 +15,7 @@ from django.db.models import Q
 # state
 # birth_date
 # status : REGISTERED, APPROVED, REJECTED
+from core.models import City, State
 
 """Choices"""
 
@@ -32,113 +33,6 @@ STATUS_REGISTRATION = (
     ('REGISTERED', 'REGISTERED'),
     ('APPROVED', 'APPROVED'),
     ('REJECTED', 'REJECTED'),)
-
-STATE_CHOICE = (
-    ('SELANGOR', 'SELANGOR'),
-    ('PERAK', 'PERAK'),
-    ('PAHANG', 'PAHANG')
-)
-
-CITY_CHOICE = (
-    ('SHAH ALAM', 'SHAH ALAM'),
-    ('IPOH', 'IPOH'),
-    ('KUANTAN', 'KUANTAN')
-)
-
-
-class StateQuerySet(models.QuerySet):
-    def search(self, query):
-        lookup = (
-                Q(nric_no__icontains=query) |
-                Q(name__icontains=query)
-        )
-        return self.filter(lookup)
-
-
-class StateManager(models.Manager):
-    def get_queryset(self):
-        return StateQuerySet(self.model, using=self._db)
-
-    def search(self, query=None):
-        if query is None:
-            return self.get_queryset().none()
-        return self.get_queryset().search(query)
-
-
-class State(models.Model):
-    # id = models.IntegerField() # pk
-    code = models.CharField(max_length=20, null=False, blank=False, unique=True)
-    name = models.CharField(max_length=120)
-    created_date = models.DateTimeField(auto_now_add=True)
-    modified_date = models.DateTimeField(auto_now=True)
-
-    objects = StateManager()
-
-    class Meta:
-        ordering = ['-modified_date']
-        verbose_name_plural = "States"
-
-    def get_absolute_url(self):
-        return f"/portfolio/states/{self.code}"
-
-    def get_edit_url(self):
-        return f"{self.get_absolute_url()}/edit"
-
-    def get_delete_url(self):
-        return f"{self.get_absolute_url()}/delete"
-
-    def __str__(self):
-        return f"{self.code}:{self.name}"
-
-
-"""City"""
-
-
-class CityQuerySet(models.QuerySet):
-    def search(self, query):
-        lookup = (
-                Q(nric_no__icontains=query) |
-                Q(name__icontains=query)
-        )
-        return self.filter(lookup)
-
-
-class CityManager(models.Manager):
-    def get_queryset(self):
-        return CityQuerySet(self.model, using=self._db)
-
-    def search(self, query=None):
-        if query is None:
-            return self.get_queryset().none()
-        return self.get_queryset().search(query)
-
-
-class City(models.Model):
-    # id = models.IntegerField() # pk
-    code = models.CharField(max_length=20, null=False, blank=False, unique=True)
-    name = models.CharField(max_length=120)
-    state = models.ForeignKey(State, null=True, on_delete=models.SET_NULL)
-    created_date = models.DateTimeField(auto_now_add=True)
-    modified_date = models.DateTimeField(auto_now=True)
-
-    objects = CityManager()
-
-    class Meta:
-        ordering = ['-modified_date']
-        verbose_name_plural = "Cities"
-
-    def get_absolute_url(self):
-        return f"/portfolio/citys/{self.code}"
-
-    def get_edit_url(self):
-        return f"{self.get_absolute_url()}/edit"
-
-    def get_delete_url(self):
-        return f"{self.get_absolute_url()}/delete"
-
-    def __str__(self):
-        return f"{self.code}:{self.name}"
-
 
 """REGISTRATION """
 
@@ -181,8 +75,8 @@ class Registration(models.Model):
     birth_date = models.DateField(null=True, blank=True, )
     gender = models.CharField(max_length=20, choices=GENDER_CHOICES, null=True)
     race = models.CharField(max_length=60, choices=RACE_CHOICES, null=True)
-    city = models.ForeignKey(City, null=True, choices=CITY_CHOICE, on_delete=models.SET_NULL)
-    state = models.ForeignKey(State, null=True, choices=STATE_CHOICE, on_delete=models.SET_NULL)
+    city = models.ForeignKey(City, null=True, on_delete=models.SET_NULL)
+    state = models.ForeignKey(State, null=True, on_delete=models.SET_NULL)
 
     created_date = models.DateTimeField(auto_now_add=True)
     modified_date = models.DateTimeField(auto_now=True)

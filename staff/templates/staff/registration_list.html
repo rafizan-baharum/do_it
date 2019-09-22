@@ -14,14 +14,26 @@
                 <table class="table table-borderless table-striped table-data3">
                     <thead>
                     <tr>
+                        <th>NRIC_NO</th>
                         <th>NAME</th>
+                        <th>CITY</th>
+                        <th>STATE</th>
                     </tr>
                     </thead>
 
                     {% for registration in registrations %}
                         <tr class='clickable-row' data-href='/staff/registrations/{{ registration.id }}'>
                             <td>
+                                {{ registration.nric_no }}
+                            </td>
+                            <td>
                                 {{ registration.name }}
+                            </td>
+                            <td>
+                                {{ registration.city.name }}
+                            </td>
+                            <td>
+                                {{ registration.state.name }}
                             </td>
                         </tr>
                     {% endfor %}

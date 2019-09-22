@@ -12,4 +12,4 @@ class VendorModelForm(forms.ModelForm):
 class ProjectModelForm(forms.ModelForm):
     class Meta:
         model = Project
-        fields = ['name', 'vendor', 'repository', 'task_point']
+        fields = ['name', 'vendor', 'distribution', 'repository', 'task_point']
