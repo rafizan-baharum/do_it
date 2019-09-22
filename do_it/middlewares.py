@@ -3,7 +3,7 @@ from django.db.models.functions import Coalesce
 from django.shortcuts import get_object_or_404
 
 from account.models import DoerWallet
-from core.models import Doer
+from core.models import Doer, Staff
 
 
 class DoerWalletMiddleware:
@@ -32,7 +32,7 @@ class DoerWalletMiddleware:
         return response
 
 
-class CurrentDoerMiddleware:
+class CurrentUserMiddleware:
     def __init__(self, get_response):
         self.get_response = get_response
         # One-time configuration and initialization.
@@ -44,7 +44,9 @@ class CurrentDoerMiddleware:
         # count message and notification
         if request.user.is_authenticated:
             if (request.user.is_doer):
-                request.session['current_doer'] = get_doer(request).name
+                request.session['current_user'] = get_doer(request).name
+            else:
+                request.session['current_user'] = get_staff(request).name
 
         response = self.get_response(request)
 
@@ -56,3 +58,7 @@ class CurrentDoerMiddleware:
 
 def get_doer(request):
     return get_object_or_404(Doer, user=request.user)
+
+
+def get_staff(request):
+    return get_object_or_404(Staff, user=request.user)

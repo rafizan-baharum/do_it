@@ -104,13 +104,13 @@
                             <div class="account-wrap">
                                 <div class="account-item clearfix js-item-menu">
                                     <div class="content">
-                                        <a class="js-acc-btn" href="#">{{ current_user }}</a>
+                                        <a class="js-acc-btn" href="#">{{ request.session.current_user }}</a>
                                     </div>
                                     <div class="account-dropdown js-dropdown">
                                         <div class="info clearfix">
                                             <div class="content">
                                                 <h5 class="name">
-                                                    <a href="#">{{ current_user }}</a>
+                                                    <a href="#">{{ request.session.current_user }}</a>
                                                 </h5>
                                             </div>
                                         </div>
