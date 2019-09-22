@@ -13,7 +13,7 @@
             <div class="image img-cir img-120">
                 <img src="{% static 'images/icon/avatar-big-01.jpg' %}" alt="Siti Raudah"/>
             </div>
-            <h4 class="name">{{request.session.current_doer}}</h4>
+            <h4 class="name">{{request.session.current_user}}</h4>
             <p>{{ request.session.sum_wallet | floatformat:2 | intcomma }} DoIT Points</p>
         </div>
 

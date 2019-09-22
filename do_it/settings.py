@@ -49,7 +49,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'do_it.middlewares.DoerWalletMiddleware',
-    'do_it.middlewares.CurrentDoerMiddleware'
+    'do_it.middlewares.CurrentUserMiddleware'
 ]
 
 ROOT_URLCONF = 'do_it.urls'
