@@ -1,12 +1,16 @@
 from django.shortcuts import render
 
 # Create your views here.
-def user_create_view(request):
-    form = UserModelForm(request.POST or None, request.FILES or None)
+from signup.forms import RegistrationModelForm
+
+
+def registration_create_page(request):
+    form = RegistrationModelForm(request.POST or None)
     context = {'form': form}
     if form.is_valid():
         obj = form.save(commit=False)
         obj.user = request.user
         obj.save()
-        return redirect('/portfolio/users/list/')
-    return render(request, 'portfolio/user_create.html', context)
+        context = {'registration': obj}
+        return render(request, 'signup/confirmation.html', 'context')
+    return render(request, 'signup/register.html', context)
