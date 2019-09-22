@@ -5,9 +5,9 @@ from django.shortcuts import render, redirect
 # Create your views here.
 from account.models import DoerWallet
 from core.models import Doer
-from repository.models import Project
+from repository.models import Project, Vendor
 from repository.signals import project_created, project_delegated
-from staff.forms import ProjectModelForm
+from staff.forms import ProjectModelForm, VendorModelForm
 
 
 def index_page(request):
@@ -80,4 +80,32 @@ def doer_detail_page(request, pk):
 
 # todo(mudzaffar):
 def doer_update_page(request, pk):
+    pass
+
+
+# todo(mudzaffar):
+def vendor_list_page(request):
+    vendors = Vendor.objects.all()
+    context = {'vendors': vendors}
+    return render(request, 'staff/vendor_list.html', context)
+
+
+def vendor_detail_page(request, pk):
+    vendor = Vendor.objects.filter(pk=pk).first()
+    context = {'vendor': vendor}
+    return render(request, 'staff/vendor_detail.html', context)
+
+
+def vendor_create_page(request):
+    form = VendorModelForm(request.POST or None)
+    if form.is_valid():
+        obj = form.save(commit=False)
+        obj.save()
+        # signal??
+        return redirect('staff:vendor_list')
+    else:
+        context = {'form': form}
+        return render(request, 'staff/vendor_create.html', context)
+
+def vendor_update_page(request, pk):
     pass

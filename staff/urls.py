@@ -1,7 +1,8 @@
 from django.urls import path
 
 from staff.views import index_page, project_list_page, project_detail_page, project_create_page, project_delegate_page, \
-    level_detail_page, level_list_page, level_update_page
+    level_detail_page, level_list_page, level_update_page, vendor_list_page, vendor_create_page, vendor_detail_page, \
+    vendor_update_page
 
 urlpatterns = [
     path('', index_page),
@@ -13,4 +14,8 @@ urlpatterns = [
     path('levels/list/', level_list_page, name='level_list'),
     path('levels/<str:pk>/', level_detail_page, name='level_detail'),
     path('levels/<str:pk>/update/', level_update_page, name='level_update'),
+    path('vendors/list/', vendor_list_page, name='vendor_list'),
+    path('vendors/create/', vendor_create_page, name='vendor_create'),
+    path('vendors/<str:pk>/', vendor_detail_page, name='vendor_detail'),
+    path('vendors/<str:pk>/update/', vendor_update_page, name='vendor_update'),
 ]
