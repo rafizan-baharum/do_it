@@ -56,6 +56,36 @@
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Doer List</h4>
+                        </div>
+                        <div class="card-body">
+                            <table class="table table-borderless table-striped">
+                                <thead>
+                                <tr>
+                                    <th>NAME</th>
+                                </tr>
+                                </thead>
+                                <tr>
+                                    <td>MOHD ALIF HAIKAL ABD RAZAK</td>
+                                </tr>
+
+                                {% for task in doer_tasks %}
+                                    <tr class='clickable-row'>
+                                        <td>
+                                            {{ task.doer.name }}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </div>
         <div class="col-lg-3">
             <div class="task-progress">
