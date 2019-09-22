@@ -1,0 +1,47 @@
+{% extends 'base_doer.html' %}
+
+{% block main-content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="overview-wrap">
+                <h2 class="title-1">Project List</h2>
+            </div>
+        </div>
+    </div>
+
+    <section>
+        <div class="section__content section__content--p30">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <!-- TASK PROGRESS-->
+                        <div class="task-progress">
+                            <h3 class="title-3">Task Progress</h3>
+
+                            {% for project_task in project_tasks %}
+                                <div class="au-skill-container">
+                                    <div class="au-progress">
+                                        <span class="au-progress__title">{{ project_task.name }} ({{ project_task.total }})</span>
+                                        <div class="au-progress__bar">
+                                            <div class="au-progress__inner js-progressbar-simple" role="progressbar"
+                                                 data-transitiongoal="{{ project_task.total }}">
+{#                                                <span class="au-progress__value js-value"></span>#}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <!-- END TASK PROGRESS-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+{% endblock %}
+
+{% block main-js %}
+    <script></script>
+{% endblock %}

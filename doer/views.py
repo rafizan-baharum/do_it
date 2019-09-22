@@ -14,15 +14,27 @@ def index_page(request):
                                                        project_tasks__is_negative=False,
                                                        project_tasks__is_neutral=False,
                                                        project_tasks__is_positive=False
-                                                       )\
-        .annotate(total=Coalesce(Count('project_tasks__doer'), 0))\
+                                                       ) \
+        .annotate(total=Coalesce(Count('project_tasks__doer'), 0)) \
         .order_by('total')
 
     context = {'project_tasks': incompleted_project_tasks}
     return render(request, 'doer/index.html', context)
 
 
-def play_page(request):
+def project_list_page(request):
+    projects = Project.objects.filter(project_tasks__doer=get_doer(request),
+                                      project_tasks__is_negative=False,
+                                      project_tasks__is_neutral=False,
+                                      project_tasks__is_positive=False
+                                      ) \
+        .annotate(total=Coalesce(Count('project_tasks__doer'), 0)) \
+        .order_by('total')
+    context = {'projects': projects}
+    return render(request, 'doer/project_list.html', context)
+
+
+def play_page(request, pk):
     current_task = None
     sentiment = request.POST.get('sentiment')
     task_id = request.POST.get('task_id')
@@ -40,11 +52,25 @@ def play_page(request):
         else:
             pass
     doer = get_doer(request)
-    task_count = Task.objects.filter(doer=doer, is_negative=False, is_neutral=False,
-                                     is_positive=False).count()
+    project = Project.objects.filter(pk=pk).first()
+    task_count = Task.objects.filter(
+        project=project,
+        doer=doer,
+        is_negative=False,
+        is_neutral=False,
+        is_positive=False).count()
     if task_count > 0:
-        current_task = Task.objects.filter(doer=doer, is_negative=False, is_neutral=False, is_positive=False)[0]
-    context = {'current_task': current_task, 'task_count': task_count}
+        current_task = Task.objects.filter(
+            project=project,
+            doer=doer,
+            is_negative=False,
+            is_neutral=False,
+            is_positive=False)[0]
+    context = {
+        'project': project,
+        'current_task': current_task,
+        'task_count': task_count
+    }
     return render(request, 'doer/play.html', context)
 
 
