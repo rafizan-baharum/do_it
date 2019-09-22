@@ -48,6 +48,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'do_it.middlewares.DoerWalletMiddleware',
+    'do_it.middlewares.CurrentDoerMiddleware'
 ]
 
 ROOT_URLCONF = 'do_it.urls'
@@ -77,7 +79,7 @@ WSGI_APPLICATION = 'do_it.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'dbv9.sqlite3'),
+        'NAME': os.path.join(BASE_DIR, 'dbv10.sqlite3'),
     }
 }
 

@@ -76,17 +76,18 @@ def level_update_page(request, pk):
     pass
 
 
-# todo(mudzaffar):
 def doer_list_page(request):
-    pass
+    doers = Doer.objects.all()
+    context = {'doers': doers}
+    return render(request, 'staff/doer_list.html', context)
 
 
-# todo(mudzaffar):
 def doer_detail_page(request, pk):
-    pass
+    doer = Doer.objects.filter(pk=pk).first()
+    context = {'doer': doer}
+    return render(request, 'staff/doer_detail.html', context)
 
 
-# todo(mudzaffar):
 def doer_update_page(request, pk):
     pass
 

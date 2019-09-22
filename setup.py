@@ -92,20 +92,22 @@ staff.nric_no = '760607-12-4431'
 staff.name = 'Siti Fariha Ahmad'
 staff.save()
 
+names = ['Azlan Ahmad', 'Jazlan Kasiran', 'Siti Salwa Rahman', 'Sabtu Difrata', 'Junaidi Jun',
+         'Jamal Abdallah', 'Ruhaini Suratman', 'Hafiz Selamat', 'Samiul Samiun']
 for j in range(9):
     user_doer = User()
     user_doer.password = 'pbkdf2_sha256$150000$kxgoZc1nqo7D$yQUXU5W2GN05Osmwy+PA1yB66W/IJkcsEzB2rdz2B3Y='
     user_doer.username = f'doer{j + 1}'
     user_doer.email = f'doer{j + 1}@gmail.com'
-    user_doer.first_name = 'Doer'
-    user_doer.last_Name = '{j+1}'
+    user_doer.first_name = names[j]
+    user_doer.last_Name = names[j]
     user_doer.is_doer = True
     user_doer.save()
     doer = Doer()
     doer.user = User.objects.filter(username=f'doer{j + 1}').first()
     doer.nric_no = f'8{j + 1}0607-12-4431'
-    doer.email = f'email{j + 1}@gmail.com'
-    doer.name = 'Siti Fariha Ahmad'
+    doer.email = f'doer{j + 1}@gmail.com'
+    doer.name = names[j]
     doer.birth_date = datetime.date(2019, 9, j + 1)
     doer.level = Level.objects.filter(code='GANGSA').first()
     doer.gender = GENDER_CHOICES[0][0]
