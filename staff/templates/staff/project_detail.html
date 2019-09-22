@@ -27,8 +27,16 @@
                                         <div class="col-md-9">{{ project.status }}</div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-3">TODO</div>
-                                        <div class="col-md-9">TODO</div>
+                                        <div class="col-md-3">All Task</div>
+                                        <div class="col-md-9">{{ project.task_count }}</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-3">Pending</div>
+                                        <div class="col-md-9">{{ project.task_count_not_done }}</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-3">Completed</div>
+                                        <div class="col-md-9">{{ project.task_count_done }}</div>
                                     </div>
                                 </div>
                             </div>

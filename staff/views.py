@@ -36,7 +36,7 @@ def project_detail_page(request, pk):
 
 
 def project_create_page(request):
-    form = ProjectModelForm(request.POST or None)
+    form = ProjectModelForm(request.POST or None, request.FILES or None)
     context = {'form': form}
     if form.is_valid():
         obj = form.save(commit=False)
