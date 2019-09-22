@@ -1,0 +1,52 @@
+{% extends 'base_doer.html' %}
+
+{% block main-content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="overview-wrap">
+                <h2 class="title-1">Project List</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 m-t-25">
+            <div class="table-responsive m-b-40">
+                <table class="table table-borderless table-striped table-data3">
+                    <thead>
+                    <tr>
+                        <th>NAME</th>
+                        <th>VENDOR</th>
+                        <th>TASKS</th>
+                    </tr>
+                    </thead>
+
+                    {% for project_task in project_tasks %}
+                        <tr class='clickable-row' data-href='/doer/tasks/play/{{ project_task.id }}'>
+                            <td>
+                                {{ project_task.name }}
+                            </td>
+                            <td>
+                                {{ project_task.vendor.name }}
+                            </td>
+                            <td>
+                                {{ project_task.total }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block main-js %}
+    <script>
+        jQuery(document).ready(function ($) {
+            $(".clickable-row").click(function () {
+                window.location = $(this).data("href");
+            });
+        });
+    </script>
+{% endblock %}

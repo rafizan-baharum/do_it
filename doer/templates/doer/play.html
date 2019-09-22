@@ -39,7 +39,7 @@
             $(".au-btn").click(function () {
                 sentiment = $(this).data("sentiment");
                 $.post(
-                    "/doer/tasks/play",
+                    "/doer/tasks/play/{{ project.id }}",
                     {
                         task_id: {{ current_task.id }},
                         sentiment: sentiment,

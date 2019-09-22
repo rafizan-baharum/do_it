@@ -12,8 +12,8 @@ from staff.forms import ProjectModelForm
 
 def index_page(request):
     projects = Project.objects.all()
-    doer_earnings = Doer.objects.all()\
-        .annotate(total=Coalesce(Sum('doer_wallets__amount'), 0))\
+    doer_earnings = Doer.objects.all() \
+        .annotate(total=Coalesce(Sum('doer_wallets__amount'), 0)) \
         .order_by('-total')
     context = {
         'projects': projects,
@@ -65,4 +65,19 @@ def level_detail_page(request, pk):
 
 # todo(mudzaffar):
 def level_update_page(request, pk):
+    pass
+
+
+# todo(mudzaffar):
+def doer_list_page(request):
+    pass
+
+
+# todo(mudzaffar):
+def doer_detail_page(request, pk):
+    pass
+
+
+# todo(mudzaffar):
+def doer_update_page(request, pk):
     pass

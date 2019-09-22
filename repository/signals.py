@@ -33,15 +33,15 @@ def assign_random_task(project):
             print(entry)
             task = Task()
             task.project = project
-            task.volunteer = recommend_random_volunteer()
+            task.doer = recommend_random_doer()
             task.data = entry
             task.save()
 
 
-def recommend_random_volunteer():
-    count_volunteer = Doer.objects.count()
-    random_volunteer = randint(0, count_volunteer - 1)
-    return Doer.objects.all()[random_volunteer]
+def recommend_random_doer():
+    count_doer = Doer.objects.count()
+    random_doer = randint(0, count_doer - 1)
+    return Doer.objects.all()[random_doer]
 
 
 # todo(hafiz): recommendation engine based on data from data.gov
