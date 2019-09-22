@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col-md-6 col-lg-3">
             <div class="statistic__item">
-                <h2 class="number">368</h2>
+                <h2 class="number">{{ completed_task }}</h2>
                 <span class="desc">Task Completed</span>
                 <div class="icon">
                     <i class="zmdi zmdi-calendar-note"></i>
@@ -13,7 +13,7 @@
         </div>
         <div class="col-md-6 col-lg-3">
             <div class="statistic__item">
-                <h2 class="number">20,100</h2>
+                <h2 class="number">{{ collected_point }}</h2>
                 <span class="desc">Points Collected</span>
                 <div class="icon">
                     <i class="zmdi zmdi-shopping-cart"></i>
@@ -22,19 +22,10 @@
         </div>
         <div class="col-md-6 col-lg-3">
             <div class="statistic__item">
-                <h2 class="number">RM 106</h2>
+                <h2 class="number">{{ earned }}</h2>
                 <span class="desc">Earned</span>
                 <div class="icon">
                     <i class="zmdi zmdi-account-o"></i>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6 col-lg-3">
-            <div class="statistic__item">
-                <h2 class="number">$1,060</h2>
-                <span class="desc">Total Earnings</span>
-                <div class="icon">
-                    <i class="zmdi zmdi-money"></i>
                 </div>
             </div>
         </div>

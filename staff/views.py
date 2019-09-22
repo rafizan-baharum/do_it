@@ -1,4 +1,4 @@
-from django.db.models import Sum
+from django.db.models import Sum, Q
 from django.db.models.functions import Coalesce
 from django.shortcuts import render, redirect
 
@@ -87,7 +87,33 @@ def doer_list_page(request):
 
 def doer_detail_page(request, pk):
     doer = Doer.objects.filter(pk=pk).first()
-    context = {'doer': doer}
+    completedTask = Task.objects.filter(Q(doer_id=pk) &
+                                        (Q(is_negative=True) |
+                                         Q(is_positive=True) |
+                                         Q(is_neutral=True))).count()
+
+    # select count(t.id) * rp.task_point collected_point
+    # from repository_task t
+    #          join repository_project rp on t.project_id = rp.id
+    # group by t.doer_id
+
+    collectedPointResult = Task.objects.raw(
+        f'select coalesce((count(t.id) * rp.task_point),0) as collected_point, t.id '
+        'from repository_task t join repository_project rp on t.project_id = rp.id '
+        'where t.doer_id = %s '
+        'and (is_negative = true or is_positive= true or is_neutral=true) '
+        'group by t.doer_id', pk)
+
+    collected_point = 0
+    if len(collectedPointResult) > 0:
+        collected_point = collectedPointResult[0].collected_point
+
+    context = {
+        'doer': doer,
+        'completed_task': completedTask,
+        'collected_point': collected_point,
+        'earned': collected_point / 100
+    }
     return render(request, 'staff/doer_detail.html', context)
 
 
