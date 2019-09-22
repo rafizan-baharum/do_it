@@ -12,7 +12,7 @@ def task_evaluated_handler(sender, **kwargs):
     wallet = DoerWallet()
     wallet.doer = task.doer
     wallet.project = task.project
-    wallet.amount = task.project.task_point
+    wallet.point = task.project.task_point
     wallet.save()
 
 
@@ -22,5 +22,5 @@ def withdrawal_approved_handler(sender, **kwargs):
     wallet = DoerWallet()
     wallet.doer = withdrawal.doer
     wallet.project = None
-    wallet.amount = withdrawal.amount * -1
+    wallet.point = withdrawal.amount * -1
     wallet.save()

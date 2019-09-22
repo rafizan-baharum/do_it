@@ -16,7 +16,7 @@ from staff.forms import ProjectModelForm, VendorModelForm
 def index_page(request):
     projects = Project.objects.all()
     doer_earnings = Doer.objects.all() \
-        .annotate(total=Coalesce(Sum('doer_wallets__amount'), 0)) \
+        .annotate(total=Coalesce(Sum('doer_wallets__point'), 0)) \
         .order_by('-total')
     context = {
         'projects': projects,
