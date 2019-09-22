@@ -93,7 +93,6 @@ def doer_update_page(request, pk):
     pass
 
 
-# todo(mudzaffar):
 def registration_list_page(request):
     registrations = Registration.objects.all()
     context = {
@@ -103,7 +102,6 @@ def registration_list_page(request):
     return render(request, 'staff/registration_list.html', context)
 
 
-# todo(mudzaffar):
 def registration_detail_page(request, pk):
     registration = Registration.objects.filter(pk=pk).first()
     context = {
@@ -123,7 +121,6 @@ def registration_update_page(request, pk):
     pass
 
 
-# todo(mudzaffar):
 def vendor_list_page(request):
     vendors = Vendor.objects.all()
     context = {
