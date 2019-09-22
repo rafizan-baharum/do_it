@@ -99,6 +99,7 @@ def registration_detail_page(request, pk):
 def registration_approve_page(request, pk):
     registration = Registration.objects.filter(pk=pk).first()
     # todo(mudzaffar): add status: REGISTERED, APPROVED, REJECTED registration.status = 'APPROVED'
+    # Registration.objects.filter(pk=pk).update(status='APPROVED')
     context = {'registration': registration}
     return render(request, 'staff/registration_detail.html', context)
 
