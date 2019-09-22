@@ -9,6 +9,7 @@ from core.models import Doer
 from repository.models import Project, Vendor, Task
 from repository.signals import project_created, project_delegated
 from signup.models import Registration
+from signup.signals import registration_approved
 from staff.forms import ProjectModelForm, VendorModelForm
 
 
@@ -95,7 +96,7 @@ def doer_update_page(request, pk):
 
 
 def registration_list_page(request):
-    registrations = Registration.objects.all()
+    registrations = Registration.objects.filter(status='REGISTERED').all()
     context = {
         'registrations': registrations,
         'current_user': request.user,
@@ -184,3 +185,15 @@ def withdrawal_approve_page(request, pk):
 def withdrawal_decline_page(request, pk):
     Withdrawal.objects.filter(pk=pk).update(status='DECLINED')
     return redirect('staff:withdrawal_list')
+
+
+def registration_approve_page(request, pk):
+    registration = Registration.objects.filter(pk=pk).first()
+    Registration.objects.filter(pk=pk).update(status='APPROVED')
+    registration_approved.send(sender=None, registration=registration)
+    return redirect('staff:registration_list')
+
+
+def registration_decline_page(request, pk):
+    Registration.objects.filter(pk=pk).update(status='DECLINED')
+    return redirect('staff:registration_list')
