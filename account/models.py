@@ -7,7 +7,7 @@ from repository.models import Project
 STATUS_CHOICES = (
     ('REQUESTED', 'REQUESTED'),
     ('APPROVED', 'APPROVED'),
-    ('REJECTED', 'REJECTED'),)
+    ('DECLINED', 'DECLINED'),)
 
 
 class DoerWallet(models.Model):

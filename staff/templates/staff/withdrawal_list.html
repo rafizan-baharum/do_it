@@ -23,7 +23,7 @@
                     </thead>
 
                     {% for withdrawal in withdrawals %}
-                        <tr class='clickable-row' data-href='/doer/withdrawals/{{ withdrawal.id }}'>
+                        <tr>
                             <td>
                                 {{ withdrawal.doer.name }}
                             </td>
@@ -37,8 +37,10 @@
                                 {{ withdrawal.status }}
                             </td>
                             <td>
-                                <input type="button" value="Approve" class="btn btn-success">
-                                <input type="button" value="Decline" class="btn btn-danger">
+                                <input id="approve_btn" data-id="{{ withdrawal.id }}" type="button" value="Approve"
+                                       class="btn btn-success">
+                                <input id="decline_btn" data-id="{{ withdrawal.id }}" type="button" value="Decline"
+                                       class="btn btn-danger">
                             </td>
                         </tr>
                     {% endfor %}
@@ -83,6 +85,30 @@
         jQuery(document).ready(function ($) {
             $(".clickable-row").click(function () {
                 window.location = $(this).data("href");
+            });
+
+            $("#approve_btn").click(function () {
+                withdrawal_id = $(this).data("id");
+                $.post(
+                    "/staff/withdrawals/" + withdrawal_id + "/approve/",
+                    {
+                        csrfmiddlewaretoken: '{{ csrf_token }}'
+                    },
+                    function (data, status, xhr) {
+                        location.reload();
+                    });
+            });
+
+            $("#decline_btn").click(function () {
+                withdrawal_id = $(this).data("id");
+                $.post(
+                    "/staff/withdrawals/" + withdrawal_id + "/decline/",
+                    {
+                        csrfmiddlewaretoken: '{{ csrf_token }}'
+                    },
+                    function (data, status, xhr) {
+                        location.reload();
+                    });
             });
         });
     </script>

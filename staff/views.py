@@ -177,4 +177,9 @@ def withdrawal_detail_page(request, pk):
 
 def withdrawal_approve_page(request, pk):
     Withdrawal.objects.filter(pk=pk).update(status='APPROVED')
-    return redirect('staff:withdrawal_detail', pk=pk)
+    return redirect('staff:withdrawal_list')
+
+
+def withdrawal_decline_page(request, pk):
+    Withdrawal.objects.filter(pk=pk).update(status='DECLINED')
+    return redirect('staff:withdrawal_list')
