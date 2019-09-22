@@ -1,0 +1,26 @@
+#!/bin/bash
+
+NAME="do_it"
+DIR=/home/do_it/project/do_it
+USER=do_it
+GROUP=do_it
+WORKERS=3
+BIND=unix:/home/do_it/run/gunicorn.sock
+DJANGO_SETTINGS_MODULE=do_it.settings
+DJANGO_WSGI_MODULE=do_it.wsgi
+LOG_LEVEL=error
+
+cd $DIR
+source /home/do_it/bin/activate
+
+export DJANGO_SETTINGS_MODULE=$DJANGO_SETTINGS_MODULE
+export PYTHONPATH=$DIR:$PYTHONPATH
+
+exec /home/do_it/bin/gunicorn ${DJANGO_WSGI_MODULE}:application \
+  --name $NAME \
+  --workers $WORKERS \
+  --user=$USER \
+  --group=$GROUP \
+  --bind=$BIND \
+  --log-level=$LOG_LEVEL \
+  --log-file=-
