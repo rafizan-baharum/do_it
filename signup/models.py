@@ -22,6 +22,10 @@ GENDER_CHOICES = (
     ('MALE', 'MALE'),
     ('FEMALE', 'FEMALE'))
 
+REGISTRATION_CHOICES = (
+    ('STAFF', 'STAFF'),
+    ('DOER', 'DOER'))
+
 RACE_CHOICES = (
     ('MALAY', 'MALAY'),
     ('CHINESE', 'CHINESE'),
@@ -130,10 +134,10 @@ class City(models.Model):
         return f"{self.code}:{self.name}"
 
 
-"""USER """
+"""REGISTRATION """
 
 
-class UserQuerySet(models.QuerySet):
+class RegistrationQuerySet(models.QuerySet):
     def registered(self):
         return self
 
@@ -146,9 +150,9 @@ class UserQuerySet(models.QuerySet):
         return self.filter(lookup)
 
 
-class UserManager(models.Manager):
+class RegistrationManager(models.Manager):
     def get_queryset(self):
-        return UserQuerySet(self.model, using=self._db)
+        return RegistrationQuerySet(self.model, using=self._db)
 
     def registered(self):
         return self.get_queryset().registered()
@@ -159,38 +163,27 @@ class UserManager(models.Manager):
         return self.get_queryset().registered().search(query)
 
 
-class User(models.Model):
+class Registration(models.Model):
     # id = models.IntegerField() # pk
-    # creator    = models.ForeignKey(User, default=1, null=True, on_delete=models.SET_NULL)
+    # creator    = models.ForeignKey(Registration, default=1, null=True, on_delete=models.SET_NULL)
     nric_no = models.CharField(max_length=20, null=False, blank=False)
     name = models.CharField(max_length=120)
-    nick_name = models.CharField(max_length=60, blank=False)
-    address1 = models.CharField(max_length=120, blank=False)
-    address2 = models.CharField(max_length=120, blank=False)
-    address3 = models.CharField(max_length=120, blank=True)
-    birth_date = models.DateField(null=False, blank=False)
-    gender = models.CharField(max_length=20, choices=GENDER_CHOICES)
-    race = models.CharField(max_length=60, choices=RACE_CHOICES)
+    password = models.CharField(max_length=1000, null=False)
+    registration = models.CharField(max_length=20, choices=REGISTRATION_CHOICES, default='REGISTERED')
+    address1 = models.CharField(max_length=120, blank=False, null=True)
+    address2 = models.CharField(max_length=120, blank=False, null=True)
+    address3 = models.CharField(max_length=120, blank=True, null=True)
+    birth_date = models.DateField(null=False, blank=False, default='DEFAULT_VALUE')
+    gender = models.CharField(max_length=20, choices=GENDER_CHOICES, null=True)
+    race = models.CharField(max_length=60, choices=RACE_CHOICES, null=True)
     city = models.ForeignKey(City, null=True, on_delete=models.SET_NULL)
     state = models.ForeignKey(State, null=True, on_delete=models.SET_NULL)
 
     created_date = models.DateTimeField(auto_now_add=True)
     modified_date = models.DateTimeField(auto_now=True)
 
-    objects = UserManager()
+    objects = RegistrationManager()
 
     class Meta:
         ordering = ['-modified_date']
-        verbose_name_plural = "Users"
-
-    def get_absolute_url(self):
-        return f"/portfolio/users/{self.nric_no}"
-
-    def get_edit_url(self):
-        return f"{self.get_absolute_url()}/edit"
-
-    def get_delete_url(self):
-        return f"{self.get_absolute_url()}/delete"
-
-    def __str__(self):
-        return f"{self.name} ({self.nric_no})"
+        verbose_name_plural = "Registrations"
