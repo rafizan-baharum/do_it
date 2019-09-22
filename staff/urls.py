@@ -2,7 +2,7 @@ from django.urls import path
 
 from staff.views import index_page, project_list_page, project_detail_page, project_create_page, project_delegate_page, \
     level_detail_page, level_list_page, level_update_page, vendor_list_page, vendor_create_page, vendor_detail_page, \
-    vendor_update_page
+    vendor_update_page, registration_list_page, registration_detail_page, registration_update_page
 
 urlpatterns = [
     path('', index_page),
@@ -18,4 +18,7 @@ urlpatterns = [
     path('vendors/create/', vendor_create_page, name='vendor_create'),
     path('vendors/<str:pk>/', vendor_detail_page, name='vendor_detail'),
     path('vendors/<str:pk>/update/', vendor_update_page, name='vendor_update'),
+    path('registrations/list/', registration_list_page, name='registration_list'),
+    path('registrations/<str:pk>/', registration_detail_page, name='registration_detail'),
+    path('registrations/<str:pk>/update/', registration_update_page, name='registration_update'),
 ]

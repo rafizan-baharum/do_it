@@ -1,1 +1,73 @@
-{#todo(mudzaffar):#}
+{% extends "base_staff.html" %}
+{% block main-content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="overview-wrap">
+                <h2 class="title-1">Registration List</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 m-t-25">
+            <div class="table-responsive m-b-40">
+                <table class="table table-borderless table-striped table-data3">
+                    <thead>
+                    <tr>
+                        <th>NAME</th>
+                    </tr>
+                    </thead>
+
+                    {% for registration in registrations %}
+                        <tr class='clickable-row' data-href='/staff/registrations/{{ registration.id }}'>
+                            <td>
+                                {{ registration.name }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+
+                {% if registrations.has_other_pages %}
+                    <nav>
+                        <ul class="pagination">
+                            {% if registrations.has_previous %}
+                                <li class="page-item">
+                                    <a class="page-link"
+                                       href="?page={{ registrations.previous_page_number }}">&laquo;</a>
+                                </li>
+                                {#                            {% else %}#}
+                                {#                                <li class="page-item"><span>&laquo;</span></li>#}
+                            {% endif %}
+                            {% for i in registrations.paginator.page_range %}
+                                {% if registrations.number == i %}
+                                    <li class="page-item active">
+                                        <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                                    </li>
+                                {% else %}
+                                    <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                                {% endif %}
+                            {% endfor %}
+                            {% if registrations.has_next %}
+                                <li class="page-item"><a class="page-link"
+                                                         href="?page={{ registrations.next_page_number }}">&raquo;</a>
+                                </li>
+                                {#                            {% else %}#}
+                                {#                                <li class="page-item"><span>&raquo;</span></li>#}
+                            {% endif %}
+                        </ul>
+                    </nav>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block main-js %}
+    <script>
+        jQuery(document).ready(function ($) {
+            $(".clickable-row").click(function () {
+                window.location = $(this).data("href");
+            });
+        });
+    </script>
+{% endblock %}

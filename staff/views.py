@@ -7,6 +7,7 @@ from account.models import DoerWallet
 from core.models import Doer
 from repository.models import Project, Vendor
 from repository.signals import project_created, project_delegated
+from signup.models import Registration
 from staff.forms import ProjectModelForm, VendorModelForm
 
 
@@ -36,13 +37,13 @@ def project_detail_page(request, pk):
 
 def project_create_page(request):
     form = ProjectModelForm(request.POST, request.FILES or None)
+    context = {'form': form}
     if form.is_valid():
         obj = form.save(commit=False)
         obj.save()
         project_created.send(sender=None, project=obj)
         return redirect('staff:home')
     else:
-        context = {'form': form}
         return render(request, 'staff/project_create.html', context)
 
 
@@ -82,6 +83,30 @@ def doer_detail_page(request, pk):
 def doer_update_page(request, pk):
     pass
 
+# todo(mudzaffar):
+def registration_list_page(request):
+    registrations = Registration.objects.all()
+    context = {'registrations': registrations}
+    return render(request, 'staff/registration_list.html', context)
+
+
+# todo(mudzaffar):
+def registration_detail_page(request, pk):
+    registration = Registration.objects.filter(pk=pk).first()
+    context = {'registration': registration}
+    return render(request, 'staff/registration_detail.html', context)
+
+def registration_approve_page(request, pk):
+    registration = Registration.objects.filter(pk=pk).first()
+    # todo(mudzaffar): add status: REGISTERED, APPROVED, REJECTED registration.status = 'APPROVED'
+    context = {'registration': registration}
+    return render(request, 'staff/registration_detail.html', context)
+
+
+# todo(mudzaffar):
+def registration_update_page(request, pk):
+    pass
+
 
 # todo(mudzaffar):
 def vendor_list_page(request):
@@ -98,13 +123,13 @@ def vendor_detail_page(request, pk):
 
 def vendor_create_page(request):
     form = VendorModelForm(request.POST or None)
+    context = {'form': form}
     if form.is_valid():
         obj = form.save(commit=False)
         obj.save()
         # signal??
         return redirect('staff:vendor_list')
     else:
-        context = {'form': form}
         return render(request, 'staff/vendor_create.html', context)
 
 def vendor_update_page(request, pk):
