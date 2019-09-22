@@ -37,10 +37,10 @@
                                 {{ withdrawal.status }}
                             </td>
                             <td>
-                                <input id="approve_btn" data-id="{{ withdrawal.id }}" type="button" value="Approve"
-                                       class="btn btn-success">
-                                <input id="decline_btn" data-id="{{ withdrawal.id }}" type="button" value="Decline"
-                                       class="btn btn-danger">
+                                <input data-id="{{ withdrawal.id }}" type="button" value="Approve"
+                                       class="btn btn-success approve_btn">
+                                <input data-id="{{ withdrawal.id }}" type="button" value="Decline"
+                                       class="btn btn-danger decline_btn">
                             </td>
                         </tr>
                     {% endfor %}
@@ -87,7 +87,7 @@
                 window.location = $(this).data("href");
             });
 
-            $("#approve_btn").click(function () {
+            $(".approve_btn").click(function () {
                 withdrawal_id = $(this).data("id");
                 $.post(
                     "/staff/withdrawals/" + withdrawal_id + "/approve/",
@@ -99,7 +99,7 @@
                     });
             });
 
-            $("#decline_btn").click(function () {
+            $(".decline_btn").click(function () {
                 withdrawal_id = $(this).data("id");
                 $.post(
                     "/staff/withdrawals/" + withdrawal_id + "/decline/",
