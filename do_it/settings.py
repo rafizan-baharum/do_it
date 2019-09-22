@@ -48,7 +48,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'do_it.middlewares.DoerWalletMiddleware'
+    'do_it.middlewares.DoerWalletMiddleware',
+    'do_it.middlewares.CurrentDoerMiddleware'
 ]
 
 ROOT_URLCONF = 'do_it.urls'
