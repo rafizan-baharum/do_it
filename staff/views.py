@@ -6,7 +6,7 @@ from django.shortcuts import render, redirect
 from account.models import DoerWallet, Withdrawal
 from account.signals import withdrawal_approved
 from core.models import Doer
-from repository.models import Project, Vendor
+from repository.models import Project, Vendor, Task
 from repository.signals import project_created, project_delegated
 from signup.models import Registration
 from staff.forms import ProjectModelForm, VendorModelForm
@@ -38,7 +38,8 @@ def project_detail_page(request, pk):
     project = Project.objects.filter(pk=pk).first()
     context = {
         'project': project,
-        'current_user': request.user
+        'current_user': request.user,
+        'doer_tasks': Task.objects.filter(project_id=pk).select_related('doer').all()
     }
     return render(request, 'staff/project_detail.html', context)
 
@@ -93,7 +94,6 @@ def doer_update_page(request, pk):
     pass
 
 
-# todo(mudzaffar):
 def registration_list_page(request):
     registrations = Registration.objects.all()
     context = {
@@ -103,7 +103,6 @@ def registration_list_page(request):
     return render(request, 'staff/registration_list.html', context)
 
 
-# todo(mudzaffar):
 def registration_detail_page(request, pk):
     registration = Registration.objects.filter(pk=pk).first()
     context = {
@@ -123,7 +122,6 @@ def registration_update_page(request, pk):
     pass
 
 
-# todo(mudzaffar):
 def vendor_list_page(request):
     vendors = Vendor.objects.all()
     context = {
