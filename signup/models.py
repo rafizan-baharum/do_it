@@ -169,7 +169,7 @@ class Registration(models.Model):
     nric_no = models.CharField(max_length=20, null=False, blank=False)
     name = models.CharField(max_length=120)
     password = models.CharField(max_length=1000, null=False)
-    registration = models.CharField(max_length=20, choices=REGISTRATION_CHOICES, default='REGISTERED')
+    registration = models.CharField(max_length=20, choices=REGISTRATION_CHOICES, default='DOER')
     address1 = models.CharField(max_length=120, blank=False, null=True)
     address2 = models.CharField(max_length=120, blank=False, null=True)
     address3 = models.CharField(max_length=120, blank=True, null=True)
