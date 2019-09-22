@@ -49,7 +49,9 @@ class Doer(models.Model):
     name = models.CharField(max_length=120)
     nric_no = models.CharField(max_length=120)
     level = models.ForeignKey(Level, null=True, on_delete=models.SET_NULL)
-    #  todo(mudzaffar): city - foreignkey City
+    # initial task count set to 0
+    task_count = models.IntegerField(default=0)
+    # todo(mudzaffar): city - foreignkey City
     # todo(mudzaffar): state - foreignkey State
 
 class Staff(models.Model):
