@@ -37,7 +37,7 @@ class Project(models.Model):
     vendor = models.ForeignKey(Vendor, null=True, on_delete=models.SET_NULL, related_name='projects')
     repository = models.FileField(blank=True, null=True)  # data
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default=STATUS_CHOICES[0][0])
-    distribution = models.CharField(max_length=20, choices=DISTRIBUTION_CHOICES, default=STATUS_CHOICES[0][0])
+    distribution = models.CharField(max_length=20, choices=DISTRIBUTION_CHOICES, default=DISTRIBUTION_CHOICES[0][0])
     task_point = models.IntegerField(default=0)
 
 
