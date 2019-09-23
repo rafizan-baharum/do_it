@@ -91,3 +91,16 @@ class Staff(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     nric_no = models.CharField(max_length=120)
     name = models.CharField(max_length=120)
+
+
+class Info(models.Model):
+    info_type = models.CharField(max_length=40)
+    image_url = models.ImageField(upload_to='info_pics/')
+    description = models.TextField()
+
+    def __str__(self):
+        return self.info_type
+
+    class Meta:
+        verbose_name = "Info"
+        verbose_name_plural = "Infos"
