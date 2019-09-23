@@ -469,6 +469,14 @@ section {
     background: #00a2e3;
 }
 
+.au-btn--yellow {
+    background: #c69500;
+}
+
+.au-btn--yellow:hover {
+    background: #c69500;
+}
+
 .au-btn--block {
     display: block;
     width: 100%;

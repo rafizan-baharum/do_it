@@ -1,3 +1,6 @@
+import random
+from random import randint
+
 from django.db.models import Sum, Count, Q
 from django.db.models.functions import Coalesce
 from django.shortcuts import render, get_object_or_404, redirect
@@ -5,7 +8,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 # Create your views here.
 from account.models import Withdrawal
 from account.signals import task_evaluated
-from core.models import Doer
+from core.models import Doer, Info
 from doer.forms import WithdrawalModelForm
 from repository.models import Task, Project
 
@@ -71,6 +74,7 @@ def project_list_page(request):
 
 
 def play_page(request, pk):
+
     current_task = None
     sentiment = request.POST.get('sentiment')
     task_id = request.POST.get('task_id')
@@ -108,6 +112,13 @@ def play_page(request, pk):
         'task_count': task_count,
         'current_user': request.user
     }
+    if random.randint(0, 100) < 36:
+        info_count = Info.objects.count()
+        random_info = randint(0, info_count - 1)
+        info = Info.objects.all()[random_info]
+        context['info'] = info
+        return render(request, 'doer/info.html', context)
+
     return render(request, 'doer/play.html', context)
 
 

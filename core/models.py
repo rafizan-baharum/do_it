@@ -87,6 +87,7 @@ class Doer(models.Model):
     state = models.ForeignKey(State, null=True, on_delete=models.SET_NULL)
     income = models.CharField(max_length=60, choices=INCOME_CHOICES, default=INCOME_CHOICES[0][0], null=True)
 
+
 class Staff(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     nric_no = models.CharField(max_length=120)
@@ -94,12 +95,11 @@ class Staff(models.Model):
 
 
 class Info(models.Model):
-    info_type = models.CharField(max_length=40)
-    image_url = models.ImageField(upload_to='info_pics/')
+    title = models.CharField(max_length=200)
     description = models.TextField()
 
     def __str__(self):
-        return self.info_type
+        return self.title
 
     class Meta:
         verbose_name = "Info"

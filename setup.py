@@ -5,7 +5,7 @@ import datetime
 from random import randint
 
 from account.models import DoerWallet
-from core.models import Staff, User, Doer, Level, State, City
+from core.models import Staff, User, Doer, Level, State, City, Info
 from repository.models import Vendor, Project
 from signup.models import INCOME_CHOICES, RACE_CHOICES, GENDER_CHOICES
 
@@ -152,5 +152,25 @@ vendor.save()
 #     entry.project = Project.objects.all()[random_project]
 #     entry.amount = 0.10
 #     entry.save()
+
+info = Info()
+info.title = 'What all things a programmer should know?'
+info.description = 'This includes a programming language like C++ ' \
+                   'or Java, essential computer science concepts like data structures,' \
+                   ' algorithms and computer networking basics, essential tools like Git,' \
+                   ' Microsoft Word and Excel, skills like SQL and UNIX, editors like Eclipse or ' \
+                   'Visual Studio, and text editors'
+info.save()
+
+info = Info()
+info.title = 'Do programmers have feelings?'
+info.description = 'Yes, we do. BUT, effective programmers have to discipline their emotions sometimes'
+info.save()
+
+info = Info()
+info.title = 'When can you say you know a language?'
+info.description = 'If somebody says they know C, how much can you trust this statement? C ' \
+                   'has so many pelicularities and as soon as you start to dig into something a little deeper'
+info.save()
 
 print('Done')
