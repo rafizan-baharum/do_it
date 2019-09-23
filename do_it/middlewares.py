@@ -50,10 +50,14 @@ class CurrentUserMiddleware:
 
         # count message and notification
         if request.user.is_authenticated:
-            if (request.user.is_doer):
+            if request.user.is_superuser:
+                pass
+            elif request.user.is_doer:
                 request.session['current_user'] = get_doer(request).name
-            else:
+            elif request.user.is_staff:
                 request.session['current_user'] = get_staff(request).name
+            else:
+                pass
 
         response = self.get_response(request)
 
