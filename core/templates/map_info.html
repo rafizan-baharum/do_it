@@ -1,0 +1,10 @@
+{% extends 'base_doer.html' %}
+{% load static %}
+
+{% block main-content %}
+{#    <iframe id="encoder_iframe" width="100%" height="100%" src="{% url 'my_map' %}">#}
+{#    </iframe>#}
+    <body style="margin:0px;padding:0px;overflow:hidden">
+        <iframe src="{% url 'my_map' %}" frameborder="0" style="overflow:hidden;height:550px;width:100%" height="100%" width="100%"></iframe>
+    </body>
+{% endblock %}

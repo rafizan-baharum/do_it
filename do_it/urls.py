@@ -4,6 +4,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include, re_path
+from django.views.generic import TemplateView
 
 from do_it.views import index_page, home_page
 
@@ -16,8 +17,9 @@ urlpatterns = [
     path('staff/', include(('staff.urls', 'staff'), namespace='staff')),
     path('doer/', include(('doer.urls', 'doer'), namespace='doer')),
     path('core/', include(('core.urls', 'core'), namespace='core')),
-    # re_path(r'^api-auth/', include('rest_framework.urls')),
     path('admin/', admin.site.urls),
+    path(r'^core', TemplateView.as_view(template_name="kl_center_map.html"),
+                   name='my_map'),
 ]
 
 if settings.DEBUG: # new
