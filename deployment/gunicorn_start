@@ -1,7 +1,7 @@
 #!/bin/bash
 
 NAME="do_it"
-DIR=/home/do_it/project/do_it
+DIR=/home/do_it/do_it
 USER=do_it
 GROUP=do_it
 WORKERS=3
