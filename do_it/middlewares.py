@@ -25,10 +25,12 @@ class DoerWalletMiddleware:
                 earning = DoerWallet.objects.filter(doer_id=get_doer(request)) \
                     .values('doer__user_id') \
                     .annotate(sum=Coalesce(Sum('point'), 0))
-                if earning is None:
-                    request.session['sum_wallet'] = 0
-                else:
-                    request.session['sum_wallet'] = str(earning[0]['sum'])
+
+                sumPoint = 0
+                if len(earning) > 0:
+                    sumPoint = earning[0]['sum']
+
+                request.session['sum_wallet'] = str(sumPoint)
         response = self.get_response(request)
 
         # Code to be executed for each request/response after
