@@ -49,29 +49,35 @@ def project_detail_page(request, pk):
     # todo : buruk
     cursor = connection.cursor()
     cursor.execute("""SELECT doer_id,
-                       doer_name,
-                       completed_task_cnt,
-                       (SELECT COUNT(*)
-                        FROM repository_task t
-                                 join core_doer c on t.doer_id = c.user_id
-                        where project_id = %s
-                          and c.user_id = x.doer_id
-                        group by c.name) overall_task_cnt,
-                       ROUND(100 * completed_task_cnt / (SELECT COUNT(*)
-                                                         FROM repository_task t
-                                                                  join core_doer c on t.doer_id = c.user_id
-                                                         where t.project_id = %s
-                                                           and c.user_id = x.doer_id
-                                                         group by c.name),
-                             2) AS       pct
-                FROM (SELECT c.user_id doer_id, c.name doer_name, COUNT(*) AS completed_task_cnt
-                      FROM repository_task t
-                               join core_doer c on t.doer_id = c.user_id
-                      where (t.is_neutral = 1 or t.is_positive = 1 or t.is_negative = 1)
-                        and project_id = %s
-                      GROUP BY c.name
-                     ) x
-                ORDER BY doer_name""", [pk, pk, pk])
+                           doer_name,
+                           (SELECT COUNT(*)
+                            FROM repository_task t
+                                     join core_doer c on t.doer_id = c.user_id
+                            where project_id = %s
+                              and c.user_id = x.doer_id
+                            group by c.name) overall_task_cnt,
+                           coalesce(ROUND(100 *
+                                 (SELECT COUNT(*) AS completed_task_cnt
+                                  FROM repository_task t
+                                           join core_doer c on t.doer_id = c.user_id
+                                  where (t.is_neutral = 1 or t.is_positive = 1 or t.is_negative = 1)
+                                    and c.user_id = x.doer_id
+                                    and t.project_id = %s
+                                  GROUP BY c.name)
+                                     / (SELECT COUNT(*)
+                                        FROM repository_task t
+                                                 join core_doer c on t.doer_id = c.user_id
+                                        where t.project_id = %s
+                                          and c.user_id = x.doer_id
+                                        group by c.name),
+                                 2),0) AS       pct
+                    FROM (SELECT c.user_id doer_id, c.name doer_name
+                          FROM repository_task t
+                                   join core_doer c on t.doer_id = c.user_id
+                          where project_id = %s
+                        group by doer_name
+                         ) x
+                    ORDER BY doer_name""", [pk, pk, pk, pk])
     summary = CursorByName(cursor)
     context = {
         'project': project,

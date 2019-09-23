@@ -81,7 +81,7 @@
                                                 {{ summary.overall_task_cnt }}
                                             </td>
                                             <td>
-                                                {{ summary.pct }}
+                                                {{ summary.pct | floatformat:0 }}
                                             </td>
                                         </tr>
                                     {% endfor %}
