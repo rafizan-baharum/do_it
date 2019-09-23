@@ -16,7 +16,7 @@ server {
     error_log /home/do_it/logs/nginx-error.log;
 
     location /static/ {
-        alias /home/do_it/project/do_it/static/;
+        alias /home/do_it/do_it/static/;
     }
 
     # checks for static file, if not found proxy to app
