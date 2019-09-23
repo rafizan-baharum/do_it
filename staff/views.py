@@ -22,7 +22,8 @@ logger = logging.getLogger(__name__)
 def index_page(request):
     projects = Project.objects.all()
     doer_earnings = Doer.objects.all() \
-        .annotate(total=Coalesce(Sum('doer_wallets__point'), 0)) \
+        .annotate(doer_id=F('user_id'),
+                  total=Coalesce(Sum('doer_wallets__point'), 0)) \
         .order_by('-total')
     context = {
         'projects': projects,

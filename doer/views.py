@@ -43,7 +43,8 @@ def index_page(request):
         'doer': doer,
         'completed_task': completed_task,
         'collected_point': collected_point,
-        'earned': collected_point / 100
+        'earned': collected_point / 100,
+        'recent_withdrawals': recent_withdrawals
     }
 
     # context = {

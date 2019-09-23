@@ -38,8 +38,12 @@
                             <tbody>
                             {% for earning in doer_earnings %}
                                 <tr>
-                                    <td>{{ earning.name }}</td>
-                                    <td class="text-right">{{ earning.total | floatformat:2|intcomma }}</td>
+                                    <td>
+                                        <a href="/staff/doers/{{ earning.user_id }}"
+                                           onmouseover="this.style.fontWeight = 'bold'"
+                                           onmouseout="this.style.fontWeight = 'normal'"
+                                           style="color: #f2f2f2">{{ earning.name }}</a></td>
+                                    <td class="text-right">{{ earning.total | floatformat:0 }}</td>
                                 </tr>
                             {% endfor %}
                             </tbody>
