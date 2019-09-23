@@ -63,28 +63,27 @@
                             <h4>Doer List</h4>
                         </div>
                         <div class="card-body">
-                            <table class="table table-borderless table-striped">
-                                <thead>
-                                <tr>
-                                    <th>NAME</th>
-                                </tr>
-                                </thead>
-                                <tr>
-                                    <td>MOHD ALIF HAIKAL ABD RAZAK</td>
-                                </tr>
-
-                                {% for task in doer_tasks %}
-                                    <tr class='clickable-row'>
-                                        <td>
-                                            {{ task.doer.name }}
-                                        </td>
+                            {% if doer_tasks %}
+                                <table class="table table-borderless table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>NAME</th>
                                     </tr>
-                                {% endfor %}
-                            </table>
+                                    </thead>
+                                    {% for task in doer_tasks %}
+                                        <tr class='clickable-row'>
+                                            <td>
+                                                {{ task.doer.name }}
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </table>
+                            {% else %}
+                                <p> There are no task delegation yet</p>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
         <div class="col-lg-3">

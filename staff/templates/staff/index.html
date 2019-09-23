@@ -5,14 +5,15 @@
 {% block main-content %}
     <div class="row">
         <div class="col-lg-9">
-            {#            <h2 class="title-1 m-b-25">Earnings By Projects</h2>#}
+            <h2 class="title-1 m-b-25">Projects</h2>
             <div class="table-responsive table--no-card m-b-40">
                 <table class="table table-borderless table-striped table-earning">
                     <thead>
                     <tr>
                         <th>Project</th>
                         <th>Vendor</th>
-                        <th class="text-right">Points</th>
+                        <th>Points</th>
+                        <th>Status</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -21,6 +22,7 @@
                             <td>{{ project.name }}</td>
                             <td>{{ project.vendor.name }}</td>
                             <td>{{ project.task_point }}</td>
+                            <td>{{ project.status }}</td>
                         </tr>
                     {% endfor %}
                     </tbody>

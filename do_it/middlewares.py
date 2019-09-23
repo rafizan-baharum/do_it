@@ -19,7 +19,7 @@ class DoerWalletMiddleware:
         if request.user.is_authenticated:
             if (request.user.is_doer):
                 earning = DoerWallet.objects.filter(doer=get_doer(request)) \
-                    .annotate(sum=Coalesce(Sum('amount'), 0)).first()
+                    .annotate(sum=Coalesce(Sum('point'), 0)).first()
                 if earning is None:
                     request.session['sum_wallet'] = 0
                 else:

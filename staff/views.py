@@ -87,7 +87,7 @@ def doer_list_page(request):
 
 def doer_detail_page(request, pk):
     doer = Doer.objects.filter(pk=pk).first()
-    completedTask = Task.objects.filter(Q(doer_id=pk) &
+    completed_task = Task.objects.filter(Q(doer_id=pk) &
                                         (Q(is_negative=True) |
                                          Q(is_positive=True) |
                                          Q(is_neutral=True))).count()
@@ -97,20 +97,20 @@ def doer_detail_page(request, pk):
     #          join repository_project rp on t.project_id = rp.id
     # group by t.doer_id
 
-    collectedPointResult = Task.objects.raw(
+    collected_point_result = Task.objects.raw(
         f'select coalesce((count(t.id) * rp.task_point),0) as collected_point, t.id '
         'from repository_task t join repository_project rp on t.project_id = rp.id '
         'where t.doer_id = %s '
-        'and (is_negative = true or is_positive= true or is_neutral=true) '
+        'and (is_negative = 1 or is_positive= 1 or is_neutral=1) '
         'group by t.doer_id', [pk])
 
     collected_point = 0
-    if len(collectedPointResult) > 0:
-        collected_point = collectedPointResult[0].collected_point
+    if len(collected_point_result) > 0:
+        collected_point = collected_point_result[0].collected_point
 
     context = {
         'doer': doer,
-        'completed_task': completedTask,
+        'completed_task': completed_task,
         'collected_point': collected_point,
         'earned': collected_point / 100
     }
