@@ -69,7 +69,7 @@
                                     <tr>
                                         <th>NAME</th>
                                         <th>NO OF TASKS</th>
-                                        <th>Completion (%)</th>
+                                        <th>COMPLETION (%)</th>
                                     </tr>
                                     </thead>
                                     {% for summary in task_summarys %}
@@ -81,7 +81,15 @@
                                                 {{ summary.overall_task_cnt }}
                                             </td>
                                             <td>
-                                                {{ summary.pct | floatformat:0 }}
+                                                <div class="au-progress">
+                                                    <div class="au-progress__bar">
+                                                        <div class="au-progress__inner js-progressbar-simple"
+                                                             role="progressbar"
+                                                             data-transitiongoal="{{ summary.pct }}">
+                                                            <span class="au-progress__value js-value"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </td>
                                         </tr>
                                     {% endfor %}
@@ -102,7 +110,7 @@
                         <span class="au-progress__title">Positive</span>
                         <div class="au-progress__bar">
                             <div class="au-progress__inner js-progressbar-simple" role="progressbar"
-                                 data-transitiongoal="90">
+                                 data-transitiongoal="8">
                                 <span class="au-progress__value js-value"></span>
                             </div>
                         </div>
