@@ -63,21 +63,25 @@
                             <h4>Doer List</h4>
                         </div>
                         <div class="card-body">
-                            {% if doer_tasks %}
+                            {% if task_summarys %}
                                 <table class="table table-borderless table-striped">
                                     <thead>
                                     <tr>
                                         <th>NAME</th>
                                         <th>NO OF TASKS</th>
+                                        <th>Completion (%)</th>
                                     </tr>
                                     </thead>
-                                    {% for task in doer_tasks %}
+                                    {% for summary in task_summarys %}
                                         <tr class='clickable-row'>
                                             <td>
-                                                <a href="/staff/doers/{{ task.user_id }}/">{{ task.name }}</a>
+                                                <a href="/staff/doers/{{ summary.doer_id }}/">{{ summary.doer_name }}</a>
                                             </td>
                                             <td>
-                                                {{ task.task_count }}
+                                                {{ summary.overall_task_cnt }}
+                                            </td>
+                                            <td>
+                                                {{ summary.pct }}
                                             </td>
                                         </tr>
                                     {% endfor %}

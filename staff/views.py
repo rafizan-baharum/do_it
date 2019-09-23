@@ -1,3 +1,6 @@
+import logging
+
+from django.db import connection
 from django.db.models import Sum, Q, Count, F
 from django.db.models.functions import Coalesce
 from django.shortcuts import render, redirect
@@ -6,11 +9,14 @@ from django.shortcuts import render, redirect
 from account.models import DoerWallet, Withdrawal
 from account.signals import withdrawal_approved
 from core.models import Doer
+from core.utils import CursorByName
 from repository.models import Project, Vendor, Task
 from repository.signals import project_created, project_delegated
 from signup.models import Registration
 from signup.signals import registration_approved
 from staff.forms import ProjectModelForm, VendorModelForm
+
+logger = logging.getLogger(__name__)
 
 
 def index_page(request):
@@ -37,11 +43,40 @@ def project_list_page(request):
 
 def project_detail_page(request, pk):
     project = Project.objects.filter(pk=pk).first()
+
+    name_map = {'doer_id': 'doer_id', 'doer_name': 'name', }
+
+    # todo : buruk
+    cursor = connection.cursor()
+    cursor.execute("""SELECT doer_id,
+                       doer_name,
+                       completed_task_cnt,
+                       (SELECT COUNT(*)
+                        FROM repository_task t
+                                 join core_doer c on t.doer_id = c.user_id
+                        where project_id = %s
+                          and c.user_id = x.doer_id
+                        group by c.name) overall_task_cnt,
+                       ROUND(100 * completed_task_cnt / (SELECT COUNT(*)
+                                                         FROM repository_task t
+                                                                  join core_doer c on t.doer_id = c.user_id
+                                                         where t.project_id = %s
+                                                           and c.user_id = x.doer_id
+                                                         group by c.name),
+                             2) AS       pct
+                FROM (SELECT c.user_id doer_id, c.name doer_name, COUNT(*) AS completed_task_cnt
+                      FROM repository_task t
+                               join core_doer c on t.doer_id = c.user_id
+                      where (t.is_neutral = 1 or t.is_positive = 1 or t.is_negative = 1)
+                        and project_id = %s
+                      GROUP BY c.name
+                     ) x
+                ORDER BY doer_name""", [pk, pk, pk])
+    summary = CursorByName(cursor)
     context = {
         'project': project,
         'current_user': request.user,
-        'doer_tasks': Task.objects.filter(project_id=pk)
-            .values(user_id=F('doer__user_id'), name=F('doer__name')).annotate(task_count=Count('id'))
+        'task_summarys': summary
     }
     return render(request, 'staff/project_detail.html', context)
 
