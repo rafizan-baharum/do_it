@@ -112,7 +112,7 @@ def play_page(request, pk):
         'task_count': task_count,
         'current_user': request.user
     }
-    if random.randint(0, 100) < 36:
+    if random.randint(0, 100) < 20:
         info_count = Info.objects.count()
         random_info = randint(0, info_count - 1)
         info = Info.objects.all()[random_info]
