@@ -68,12 +68,16 @@
                                     <thead>
                                     <tr>
                                         <th>NAME</th>
+                                        <th>NO OF TASKS</th>
                                     </tr>
                                     </thead>
                                     {% for task in doer_tasks %}
                                         <tr class='clickable-row'>
                                             <td>
-                                                {{ task.doer.name }}
+                                                <a href="/staff/doers/{{ task.user_id }}/">{{ task.name }}</a>
+                                            </td>
+                                            <td>
+                                                {{ task.task_count }}
                                             </td>
                                         </tr>
                                     {% endfor %}

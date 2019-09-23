@@ -1,4 +1,4 @@
-from django.db.models import Sum, Q
+from django.db.models import Sum, Q, Count, F
 from django.db.models.functions import Coalesce
 from django.shortcuts import render, redirect
 
@@ -40,7 +40,8 @@ def project_detail_page(request, pk):
     context = {
         'project': project,
         'current_user': request.user,
-        'doer_tasks': Task.objects.filter(project_id=pk).select_related('doer').all()
+        'doer_tasks': Task.objects.filter(project_id=pk)
+            .values(user_id=F('doer__user_id'), name=F('doer__name')).annotate(task_count=Count('id'))
     }
     return render(request, 'staff/project_detail.html', context)
 
@@ -88,9 +89,9 @@ def doer_list_page(request):
 def doer_detail_page(request, pk):
     doer = Doer.objects.filter(pk=pk).first()
     completed_task = Task.objects.filter(Q(doer_id=pk) &
-                                        (Q(is_negative=True) |
-                                         Q(is_positive=True) |
-                                         Q(is_neutral=True))).count()
+                                         (Q(is_negative=True) |
+                                          Q(is_positive=True) |
+                                          Q(is_neutral=True))).count()
 
     # select count(t.id) * rp.task_point collected_point
     # from repository_task t
