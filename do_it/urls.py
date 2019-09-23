@@ -18,8 +18,6 @@ urlpatterns = [
     path('doer/', include(('doer.urls', 'doer'), namespace='doer')),
     path('core/', include(('core.urls', 'core'), namespace='core')),
     path('admin/', admin.site.urls),
-    path(r'^core', TemplateView.as_view(template_name="kl_center_map.html"),
-                   name='my_map'),
 ]
 
 if settings.DEBUG: # new

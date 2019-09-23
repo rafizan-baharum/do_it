@@ -139,5 +139,9 @@ def withdrawal_detail_page(request, pk):
     return render(request, 'doer/withdrawal_detail.html', context)
 
 
+def center_map_page(request):
+    return render(request, 'doer/center_map.html')
+
+
 def get_doer(request):
     return get_object_or_404(Doer, user=request.user)

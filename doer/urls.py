@@ -1,7 +1,7 @@
 from django.urls import path
 
 from doer.views import index_page, play_page, project_list_page, withdrawal_list_page, withdrawal_detail_page, \
-    withdrawal_create_page
+    withdrawal_create_page, center_map_page
 
 urlpatterns = [
     path('', index_page),
@@ -11,4 +11,5 @@ urlpatterns = [
     path('withdrawals/list/', withdrawal_list_page, name='withdrawal_list'),
     path('withdrawals/create/', withdrawal_create_page, name='withdrawal_create'),
     path('withdrawals/<str:pk>/', withdrawal_detail_page, name='withdrawal_detail'),
+    path('map/', center_map_page, name='center_map'),
 ]

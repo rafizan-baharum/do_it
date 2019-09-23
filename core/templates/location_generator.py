@@ -43,4 +43,4 @@ folium.Marker([3.22187,101.72097],
 
 
 # Generate Map
-m.save('kl_center_map.html')
+m.save('center_map.html')
