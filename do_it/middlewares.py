@@ -1,9 +1,13 @@
+import logging
+
 from django.db.models import Sum
 from django.db.models.functions import Coalesce
 from django.shortcuts import get_object_or_404
 
 from account.models import DoerWallet
 from core.models import Doer, Staff
+
+logger = logging.getLogger(__name__)
 
 
 class DoerWalletMiddleware:
@@ -18,12 +22,13 @@ class DoerWalletMiddleware:
         # count message and notification
         if request.user.is_authenticated:
             if (request.user.is_doer):
-                earning = DoerWallet.objects.filter(doer=get_doer(request)) \
-                    .annotate(sum=Coalesce(Sum('point'), 0)).first()
+                earning = DoerWallet.objects.filter(doer_id=get_doer(request)) \
+                    .values('doer__user_id') \
+                    .annotate(sum=Coalesce(Sum('point'), 0))
                 if earning is None:
                     request.session['sum_wallet'] = 0
                 else:
-                    request.session['sum_wallet'] = str(earning.sum)
+                    request.session['sum_wallet'] = str(earning[0]['sum'])
         response = self.get_response(request)
 
         # Code to be executed for each request/response after
