@@ -1,24 +1,32 @@
+from django.contrib.auth.hashers import make_password
 from django.dispatch import receiver, Signal
 
-registration_approved = Signal(providing_args=["registration"])
+from core.models import User, Doer, Level
 
+registration_approved = Signal(providing_args=["registration"])
 
 @receiver(registration_approved)
 def registration_approved_created_handler(sender, **kwargs):
     registration = kwargs['registration']
 
-    # todo(mudzaffar):
-    # user_volunteer = User()
-    # user_volunteer.password = 'pbkdf2_sha256$150000$kxgoZc1nqo7D$yQUXU5W2GN05Osmwy+PA1yB66W/IJkcsEzB2rdz2B3Y='
-    # user_volunteer.username = f'doer{j + 1}'
-    # user_volunteer.email = f'doer{j + 1}@gmail.com'
-    # user_volunteer.first_name = 'Volunteer'
-    # user_volunteer.last_Name = '{j+1}'
-    # user_volunteer.is_volunteer = True
-    # user_volunteer.save()
-    #
-    # doer = Volunteer()
-    # doer.user = User.objects.filter(username=f'doer{j + 1}').first()
-    # doer.nric_no = f'8{j + 1}0607-12-4431'
-    # doer.name = 'Siti Fariha Ahmad'
-    # doer.save()
+    user_doer = User()
+    user_doer.password = make_password(registration.password)
+    user_doer.username = registration.email
+    user_doer.email = registration.email
+    user_doer.first_name = registration.name
+    user_doer.last_Name = ''
+    user_doer.is_doer = True
+    user_doer.save()
+
+    doer = Doer()
+    doer.user = User.objects.filter(username=registration.email).first()
+    doer.email = registration.email
+    doer.nric_no = registration.nric_no
+    doer.name = registration.name
+    doer.birth_date = registration.birth_date
+    doer.state = registration.state
+    doer.city = registration.city
+    doer.gender = registration.gender
+    doer.race = registration.race
+    doer.level = Level.objects.filter(code='GANGSA').first()
+    doer.save()

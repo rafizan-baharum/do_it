@@ -1,52 +1,35 @@
 {% extends 'base_doer.html' %}
 
 {% block main-content %}
-    <div class="row">
-        <div class="col-md-12">
-            <div class="overview-wrap">
-                <h2 class="title-1">Dashboard</h2>
-            </div>
-        </div>
-    </div>
-
     <!-- STATISTIC-->
     <section class="statistic">
         <div class="section__content section__content--p30">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-md-6 col-lg-3">
+                    <div class="col-md-6 col-lg-4">
                         <div class="statistic__item">
-                            <h2 class="number">368</h2>
+                            <h2 class="number">{{ completed_task }}</h2>
                             <span class="desc">Task Completed</span>
                             <div class="icon">
                                 <i class="zmdi zmdi-calendar-note"></i>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6 col-lg-3">
+                    <div class="col-md-6 col-lg-4">
                         <div class="statistic__item">
-                            <h2 class="number">20,100</h2>
+                            <h2 class="number">{{ collected_point }}</h2>
                             <span class="desc">Points Collected</span>
                             <div class="icon">
                                 <i class="zmdi zmdi-shopping-cart"></i>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6 col-lg-3">
+                    <div class="col-md-6 col-lg-4">
                         <div class="statistic__item">
-                            <h2 class="number">RM 106</h2>
+                            <h2 class="number">{{ earned}}</h2>
                             <span class="desc">Earned</span>
                             <div class="icon">
                                 <i class="zmdi zmdi-account-o"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-3">
-                        <div class="statistic__item">
-                            <h2 class="number">$1,060</h2>
-                            <span class="desc">Total Earnings</span>
-                            <div class="icon">
-                                <i class="zmdi zmdi-money"></i>
                             </div>
                         </div>
                     </div>
@@ -62,32 +45,24 @@
                 <div class="row">
                     <div class="col-xl-8">
                         <div class="user-data m-b-40">
-                            <h3 class="title-3 m-b-30">Account Statement</h3>
+                            <h3 class="title-3 m-b-30">Recent Withdrawals</h3>
                             <div class="table-responsive table-data">
                                 <table class="table">
                                     <thead>
                                     <tr>
-                                        <td>Action</td>
+                                        <td>Points</td>
                                         <td>Amount</td>
                                         <td>Date</td>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <td>Withdraw</td>
-                                        <td>120.00</td>
-                                        <td>12/01/2019</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Withdraw</td>
-                                        <td>120.00</td>
-                                        <td>12/01/2019</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Withdraw</td>
-                                        <td>120.00</td>
-                                        <td>12/01/2019</td>
-                                    </tr>
+                                    {% for recent_withdrawal in recent_withdrawals %}
+                                        <tr>
+                                            <td>{{ recent_withdrawal.amount }}</td>
+                                            <td>{{ recent_withdrawal.amount }}</td>
+                                            <td>{{ recent_withdrawal.withdraw_date }}</td>
+                                        </tr>
+                                    {% endfor %}
                                     </tbody>
                                 </table>
                             </div>
@@ -105,7 +80,7 @@
                                         <div class="au-progress__bar">
                                             <div class="au-progress__inner js-progressbar-simple" role="progressbar"
                                                  data-transitiongoal="{{ project_task.total }}">
-{#                                                <span class="au-progress__value js-value"></span>#}
+                                                {#                                                <span class="au-progress__value js-value"></span>#}
                                             </div>
                                         </div>
                                     </div>

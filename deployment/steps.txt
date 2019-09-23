@@ -1,0 +1,15 @@
+adduser do_it
+gpasswd -a do_it sudo
+
+
+su - do_it
+ssh-keygen
+
+virtualenv -p /usr/bin/python3 .
+git clone ..
+
+cd do_it
+pip install -r requirements.txt
+python manage.py migrate
+python manage.py collectstatic
+python manage.py runserver 0.0.0.0:8000

@@ -1,0 +1,55 @@
+{% extends 'base_play.html' %}
+
+{% block classification-form %}
+    <div class="login-form">
+        {% if current_task %}
+            <div class="form-group">
+                <h1>{{ current_task.data }}</h1>
+            </div>
+            <div class="social-login-content">
+                <div class="social-button">
+                    <button class="au-btn au-btn--block au-btn--red m-b-20" data-sentiment="negative">Negative
+                    </button>
+                    <button class="au-btn au-btn--block au-btn--blue m-b-20" data-sentiment="neutral">Neutral
+                    </button>
+                    <button class="au-btn au-btn--block au-btn--green m-b-20" data-sentiment="positive">Positive
+                    </button>
+                </div>
+            </div>
+            <div class="register-link">
+                <p>{{ task_count }} tasks remaining</p>
+                <p>
+                    Back to <a href="/doer/home">Home</a>
+                </p>
+            </div>
+        {% elif not current_task %}
+            <div class="register-link">
+                <p>You currently have no task</p>
+                <p>
+                    Back to <a href="/doer/home">Home</a>
+                </p>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block main-js %}
+    <script>
+        jQuery(document).ready(function ($) {
+            $(".au-btn").click(function () {
+                sentiment = $(this).data("sentiment");
+                $.post(
+                    "/doer/tasks/play/{{ project.id }}",
+                    {
+                        task_id: {{ current_task.id }},
+                        sentiment: sentiment,
+                        csrfmiddlewaretoken: '{{ csrf_token }}'
+                    },
+                    function (data, status, xhr) {
+                        location.reload();
+                    });
+            });
+        });
+    </script>
+
+{% endblock %}

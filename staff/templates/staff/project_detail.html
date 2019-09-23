@@ -13,31 +13,90 @@
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="row">
-                                        <div class="col-md-3">Name</div>
-                                        <div class="col-md-9">{{ project.name }}</div>
+                                        <div class="col-md-4">Name</div>
+                                        <div class="col-md-8">{{ project.name }}</div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-3">Vendor</div>
-                                        <div class="col-md-9">{{ project.vendor.name}}</div>
+                                        <div class="col-md-4">Vendor</div>
+                                        <div class="col-md-8">{{ project.vendor.name }}</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4">Repository</div>
+                                        <div class="col-md-8">{{ project.repository.url }}</div>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="row">
-                                        <div class="col-md-3">TODO</div>
-                                        <div class="col-md-9">TODO</div>
+                                        <div class="col-md-4">Status</div>
+                                        <div class="col-md-8">{{ project.status }}</div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-3">TODO</div>
-                                        <div class="col-md-9">TODO</div>
+                                        <div class="col-md-4">All Task</div>
+                                        <div class="col-md-8">{{ project.task_count }}</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4">Pending</div>
+                                        <div class="col-md-8">{{ project.task_count_not_done }}</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4">Completed</div>
+                                        <div class="col-md-8">{{ project.task_count_done }}</div>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="form-actions">
-                                <button class="btn btn-primary" onclick="delegate()">
-                                    Delegate
-                                </button>
+                                {% if  project.status != 'DELEGATED' %}
+                                    <button class="btn btn-primary" onclick="delegate()">
+                                        Delegate
+                                    </button>
+                                {% endif %}
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Doer List</h4>
+                        </div>
+                        <div class="card-body">
+                            {% if task_summarys %}
+                                <table class="table table-borderless table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>NAME</th>
+                                        <th>NO OF TASKS</th>
+                                        <th>COMPLETION (%)</th>
+                                    </tr>
+                                    </thead>
+                                    {% for summary in task_summarys %}
+                                        <tr class='clickable-row'>
+                                            <td>
+                                                <a href="/staff/doers/{{ summary.doer_id }}/">{{ summary.doer_name }}</a>
+                                            </td>
+                                            <td>
+                                                {{ summary.overall_task_cnt }}
+                                            </td>
+                                            <td>
+                                                <div class="au-progress">
+                                                    <div class="au-progress__bar">
+                                                        <div class="au-progress__inner js-progressbar-simple"
+                                                             role="progressbar"
+                                                             data-transitiongoal="{{ summary.pct }}">
+                                                            <span class="au-progress__value js-value"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </table>
+                            {% else %}
+                                <p> There are no task delegation yet</p>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -51,7 +110,7 @@
                         <span class="au-progress__title">Positive</span>
                         <div class="au-progress__bar">
                             <div class="au-progress__inner js-progressbar-simple" role="progressbar"
-                                 data-transitiongoal="90">
+                                 data-transitiongoal="8">
                                 <span class="au-progress__value js-value"></span>
                             </div>
                         </div>

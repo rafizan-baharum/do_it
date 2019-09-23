@@ -3,14 +3,14 @@
 <aside class="menu-sidebar d-none d-lg-block">
     <div class="logo">
         <a href="#">
-            <img src="{% static 'images/icon/logo-mini.png' %}"  height="80" width="150" alt="Do IT"/>
+            <img src="{% static 'images/icon/logo.png' %}"  height="80" width="150" alt="Do IT"/>
         </a>
     </div>
     <div class="menu-sidebar__content js-scrollbar1">
         <nav class="navbar-sidebar">
             <ul class="list-unstyled navbar__list">
-                <li class="active has-sub">
-                    <a class="js-arrow" href="/staff/home">
+                <li>
+                    <a  href="/staff/home">
                         <i class="fas fa-tachometer-alt"></i>Dashboard</a>
                 </li>
                 <li>
@@ -24,15 +24,25 @@
                     </a>
                 </li>
                 <li>
+                    <a href="/staff/doers/list">
+                        <i class="fas fa-chart-bar"></i>Doers
+                    </a>
+                </li>
+                <li>
+                    <a href="/staff/withdrawals/list">
+                        <i class="fas fa-chart-bar"></i>Withdrawals
+                    </a>
+                </li>
+                <li>
                     <a href="/staff/registrations/list">
                         <i class="fas fa-chart-bar"></i>Registrations
                     </a>
                 </li>
-                <li>
-                    <a href="/staff/configurations">
-                        <i class="fas fa-chart-bar"></i>Configuration
-                    </a>
-                </li>
+{#                <li>#}
+{#                    <a href="/staff/configurations">#}
+{#                        <i class="fas fa-chart-bar"></i>Configuration#}
+{#                    </a>#}
+{#                </li>#}
                 <li>
                     <a href="/accounts/logout">
                         <i class="fas fa-chart-bar"></i>Logout

@@ -1,7 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 # Create your views here.
 from signup.forms import RegistrationModelForm
+from signup.models import Registration
+from signup.signals import registration_approved
 
 
 def registration_create_page(request):

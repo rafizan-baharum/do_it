@@ -323,7 +323,13 @@ section {
 
 .page-content--bge5 {
     background: #e5e5e5;
-    height: 100vh;
+    height: 200vh;
+}
+
+
+.page-content--register-bge5 {
+    background: #e5e5e5;
+    height: 150vh;
 }
 
 .login-wrap {
@@ -1210,6 +1216,12 @@ section {
         top: 0;
         left: 0;
         height: 170px;
+    }
+}
+
+@media (max-width: 990px) {
+    .header-desktop {
+        display: none;
     }
 }
 

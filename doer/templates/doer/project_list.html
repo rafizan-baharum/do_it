@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="overview-wrap">
-                <h2 class="title-1">Project List</h2>
+                <h2 class="title-1">Tasks</h2>
             </div>
         </div>
     </div>
@@ -34,6 +34,12 @@
                             </td>
                         </tr>
                     {% endfor %}
+                    {% if not project_tasks %}
+                        <tr>
+                            <td colspan="3">You have no task at the moment.</td>
+                        </tr>
+                    {% endif %}
+
                 </table>
             </div>
         </div>

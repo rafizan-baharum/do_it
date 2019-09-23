@@ -4,32 +4,25 @@
 
 {% block main-content %}
     <div class="row">
-        <div class="col-md-12">
-            <div class="overview-wrap">
-                <h2 class="title-1">Dashboard</h2>
-            </div>
-        </div>
-    </div>
-    <div class="row">
         <div class="col-lg-9">
-            <h2 class="title-1 m-b-25">Earnings By Projects</h2>
+            <h2 class="title-1 m-b-25">Projects</h2>
             <div class="table-responsive table--no-card m-b-40">
                 <table class="table table-borderless table-striped table-earning">
                     <thead>
                     <tr>
                         <th>Project</th>
                         <th>Vendor</th>
-                        <th class="text-right">Points</th>
-                        <th class="text-right">Earnings</th>
+                        <th>Points</th>
+                        <th>Status</th>
                     </tr>
                     </thead>
                     <tbody>
                     {% for project in projects %}
-                        <tr>
+                        <tr class='clickable-row' data-href='/staff/projects/{{ project.id }}'>
                             <td>{{ project.name }}</td>
                             <td>{{ project.vendor.name }}</td>
                             <td>{{ project.task_point }}</td>
-                            <td class="text-right">$999.00</td>
+                            <td>{{ project.status }}</td>
                         </tr>
                     {% endfor %}
                     </tbody>
@@ -45,8 +38,12 @@
                             <tbody>
                             {% for earning in doer_earnings %}
                                 <tr>
-                                    <td>{{ earning.name }}</td>
-                                    <td class="text-right">{{ earning.total | floatformat:2|intcomma }}</td>
+                                    <td>
+                                        <a href="/staff/doers/{{ earning.user_id }}"
+                                           onmouseover="this.style.fontWeight = 'bold'"
+                                           onmouseout="this.style.fontWeight = 'normal'"
+                                           style="color: #f2f2f2">{{ earning.name }}</a></td>
+                                    <td class="text-right">{{ earning.total | floatformat:0 }}</td>
                                 </tr>
                             {% endfor %}
                             </tbody>
@@ -59,5 +56,11 @@
 {% endblock %}
 
 {% block main-js %}
-    <script></script>
+    <script>
+        jQuery(document).ready(function ($) {
+            $(".clickable-row").click(function () {
+                window.location = $(this).data("href");
+            });
+        });
+    </script>
 {% endblock %}

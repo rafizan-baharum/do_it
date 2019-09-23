@@ -18,6 +18,7 @@
                         <th>NAME</th>
                         <th>CITY</th>
                         <th>STATE</th>
+                        <th>ACTION</th>
                     </tr>
                     </thead>
 
@@ -34,6 +35,12 @@
                             </td>
                             <td>
                                 {{ registration.state.name }}
+                            </td>
+                            <td>
+                                <input data-id="{{ registration.id }}" type="button" value="Approve"
+                                       class="btn btn-success approve_btn">
+                                <input data-id="{{ registration.id }}" type="button" value="Decline"
+                                       class="btn btn-danger decline_btn">
                             </td>
                         </tr>
                     {% endfor %}
@@ -81,5 +88,30 @@
                 window.location = $(this).data("href");
             });
         });
+
+        $(".approve_btn").click(function () {
+            registration_id = $(this).data("id");
+            $.post(
+                "/staff/registrations/" + registration_id + "/approve/",
+                {
+                    csrfmiddlewaretoken: '{{ csrf_token }}'
+                },
+                function (data, status, xhr) {
+                    location.reload();
+                });
+        });
+
+        $(".decline_btn").click(function () {
+            registration_id = $(this).data("id");
+            $.post(
+                "/staff/registrations/" + registration_id + "/decline/",
+                {
+                    csrfmiddlewaretoken: '{{ csrf_token }}'
+                },
+                function (data, status, xhr) {
+                    location.reload();
+                });
+        });
     </script>
+
 {% endblock %}

@@ -20,6 +20,7 @@
                         <th>NAME</th>
                         <th>VENDOR</th>
                         <th>DISTRIBUTION</th>
+                        <th>PROGRESS</th>
                         <th>STATUS</th>
                     </tr>
                     </thead>
@@ -34,6 +35,9 @@
                             </td>
                             <td>
                                 {{ project.distribution }}
+                            </td>
+                            <td>
+                                {{ project.task_count_not_done }} / {{ project.task_count_done }} / {{ project.task_count }}
                             </td>
                             <td>
                                 {{ project.status }}
